@@ -4,7 +4,6 @@
 * [Project background](https://github.com/Azidalus/Demand-Forecasting-Web-app#Project-background)
 * [How to use](https://github.com/Azidalus/Demand-Forecasting-Web-app#How-to-use)
 * [Backend architecture](https://github.com/Azidalus/Demand-Forecasting-Web-app#Backend-architecture)
-* [Recommendations](https://github.com/Azidalus/Demand-Forecasting-Web-app#Recommendations)
 * [Future improvements](https://github.com/Azidalus/Demand-Forecasting-Web-app#Future-improvements)
 
 ## Project background
