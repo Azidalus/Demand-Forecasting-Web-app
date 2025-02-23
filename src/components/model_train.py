@@ -1,3 +1,4 @@
 models = {'Linear regression': LinearRegression(),
           'Ridge': Ridge(),
-          'Lasso': Lasso()}
+          'Lasso': Lasso(),
+          'XGBoost': XGBoost()}
