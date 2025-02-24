@@ -1,5 +1,6 @@
 from data_ingestion.py import
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.model_selection import GridSearchCV
 
 models = {'Linear regression': LinearRegression(),
           'Ridge': Ridge(),
@@ -17,3 +18,4 @@ for name, model in models.items():
     model.fit(X_train, y_train)
     test_score = model.score(X_test, y_test)
     print("{} Test Set Accuracy: {}".format(name, test_score))
+
