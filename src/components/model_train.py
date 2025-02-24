@@ -2,6 +2,7 @@ from data_ingestion.py import
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.model_selection import GridSearchCV
 
+# Model selection
 models = {'Linear regression': LinearRegression(),
           'Ridge': Ridge(),
           'Lasso': Lasso(),
@@ -19,3 +20,7 @@ for name, model in models.items():
     test_score = model.score(X_test, y_test)
     print("{} Test Set Accuracy: {}".format(name, test_score))
 
+# Fine tuning
+param_grid = {}
+kf = KFold
+chosen_model_cv = GridSearchCV(model, param_grid, cv=kf)
