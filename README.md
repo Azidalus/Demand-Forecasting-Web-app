@@ -14,5 +14,7 @@ Many companies are interested in demand forecasting to have appropriate levels o
 2. Specify parameters you want (e.g. forecast horizon)
 
 ## Backend architecture
+AWS cloud
+Docker
 
 ## Future improvements
