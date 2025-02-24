@@ -1,6 +1,8 @@
 from data_ingestion.py import
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
-from sklearn.model_selection import GridSearchCV
+from xgboost import XGBRegressor
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 # Model selection
 models = {'Linear regression': LinearRegression(),
