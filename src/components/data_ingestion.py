@@ -17,8 +17,11 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
-        
-
+        logging.info('Entered the data ingestion component')
+        try:
+            pass
+        except:
+            pass
 
 def get_data(csv_file, forecast_horizon):
 
