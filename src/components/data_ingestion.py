@@ -19,7 +19,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info('Entered the data ingestion component')
         try:
-            pass
+            df = pd.read_csv('data\file.csv')
         except:
             pass
 
