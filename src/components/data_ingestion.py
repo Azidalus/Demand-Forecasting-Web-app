@@ -6,6 +6,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+# Paths to raw, train and test data files
 @dataclass
 class DataIngestionConfig:
     raw_data_path: str = os.path.join('artifacts', 'raw.csv')
@@ -20,6 +21,10 @@ class DataIngestion:
         logging.info('Entered the data ingestion component')
         try:
             df = pd.read_csv('data\file.csv')
+            logging.info('Read the dataset as dataframe')
+
+            # Create train data folder
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
         except:
             pass
 
