@@ -12,7 +12,12 @@ class DataIngestionConfig:
     train_data_path: str = os.path.join('artifacts', 'train.csv')
     test_data_path: str = os.path.join('artifacts', 'test.csv')
     
+class DataIngestion:
+    def __init__(self):
+        self.ingestion_config = DataIngestionConfig()
 
+    def initiate_data_ingestion(self):
+        
 
 
 def get_data(csv_file, forecast_horizon):
