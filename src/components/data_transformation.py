@@ -17,4 +17,10 @@ class DataTransformationConfig:
 
 class DataTransformation:
     def __init__(self):
-        pass
+        self.data_transformation_config =DataTransformationConfig()
+
+    def get_data_transformer_object(self):
+        try:
+            pass
+        except:
+            pass
