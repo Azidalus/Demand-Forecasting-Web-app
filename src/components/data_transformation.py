@@ -21,6 +21,8 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         try:
-            pass
+            numerical_columns = ['']
+
+            num_pipeline = Pipeline
         except:
             pass
