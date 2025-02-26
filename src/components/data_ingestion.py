@@ -27,10 +27,7 @@ class DataIngestion:
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
             logging.info('Train test split initiated')
+
+            train_set, test_set = train_test_split(df, test_size=0.2, random_state=1, shuffle=False)
         except:
             pass
-
-def get_data(csv_file, forecast_horizon):
-
-
-    return X_train, y_train, X_test, y_test
