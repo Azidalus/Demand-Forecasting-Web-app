@@ -25,10 +25,18 @@ class DataTransformation:
 
             num_pipeline = Pipeline(
                 steps = [
-                        ('imputer', SimpleImputer(strategy='median'))
+                    ('imputer', SimpleImputer(strategy='median'))
                 ]    
             )
-
             logging.info('Numerical columns encoding completed')
+
+            preprocessor = ColumnTransformer(
+                [
+                    ('num_pipeline', num_pipeline, numerical_columns)
+                ]
+            )
+
+            return preprocessor
+
         except:
             pass
