@@ -62,6 +62,12 @@ class DataTransformation:
             train_arr = np.c_[
                 input_features_train_arr, np.array(target)]
             logging.info('Saved preprocessing object')
-            
+
+            return(
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_obj_file_path,
+            )
+        
         except:
             pass
