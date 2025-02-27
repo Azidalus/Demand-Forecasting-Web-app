@@ -52,5 +52,11 @@ class DataTransformation:
             target_column_name = 'sales'
             numerical_columns = ['']
             input_features_train_df = train_df('date')
+
+            target_feature_test_df = test_df(target_column_name)
+            logging.info('Applying preprocessing object on train and test df')
+
+            input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_df)
+            input_features_test_arr = preprocessing_obj.fit_transform(input_features_test_df)
         except:
             pass
