@@ -63,6 +63,11 @@ class DataTransformation:
                 input_features_train_arr, np.array(target)]
             logging.info('Saved preprocessing object')
 
+            save_object(
+                file_path = ,
+                obj = preprocessing_obj
+            )
+
             return(
                 train_arr,
                 test_arr,
