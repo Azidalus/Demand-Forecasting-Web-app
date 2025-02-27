@@ -51,5 +51,6 @@ class DataTransformation:
             preprocessing_obj = self.get_data_transformer_object()
             target_column_name = 'sales'
             numerical_columns = ['']
+            input_features_train_df = train_df('date')
         except:
             pass
