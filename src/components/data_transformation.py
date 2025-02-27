@@ -43,7 +43,13 @@ class DataTransformation:
         
     def initiate_data_transformation(self, train_path, test_path):
         try:
-            pass
-        
+            train_df = pd.read_csv(train_path)
+            test_df = pd.read_csv(test_path)
+            logging.info('Read train and test data completed')
+
+            logging.info('Obtaining preprocessing object')
+            preprocessing_obj = self.get_data_transformer_object()
+            target_column_name = 'sales'
+            numerical_columns = ['']
         except:
             pass
