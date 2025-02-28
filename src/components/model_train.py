@@ -1,3 +1,5 @@
+import os
+import sys
 from data_ingestion.py import
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
@@ -9,6 +11,12 @@ from src.logger import logging
 from src.utils import save_object
 
 @dataclass
+class ModelTrainerConfig:
+    trained_model_file_path = os.path.join('artifacts', 'model.pkl')
+
+class ModelTrainer:
+    def __init__(self):
+        self.
 
 # Model selection
 models = {'Linear regression': LinearRegression(),
