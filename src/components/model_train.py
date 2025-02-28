@@ -21,15 +21,21 @@ class ModelTrainer:
     def initiate_model_trainer(self, train_array, test_array, preprocessor_path):
         try:
             logging.info('Split train and test input data')
-            X_train, y_train, X_test, y_test = ()
+            X_train, y_train, X_test, y_test = (
+                train_array[:,:-1],
+                train_array[:,:-1],
+                test_array[:,:-1],
+                test_array[:,:-1]
+            )
+
+            models = {'Linear regression': LinearRegression(),
+                      'Ridge': Ridge(),
+                      'Lasso': Lasso(),
+                      'XGBoost': XGBoost()}
+
         except:
             pass
 
-# Model selection
-models = {'Linear regression': LinearRegression(),
-          'Ridge': Ridge(),
-          'Lasso': Lasso(),
-          'XGBoost': XGBoost()}
 
 results = []
 
