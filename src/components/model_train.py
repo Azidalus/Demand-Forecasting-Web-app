@@ -3,8 +3,12 @@ from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+from dataclasses import dataclass
 from src.exception import CustomException
 from src.logger import logging
+from src.utils import save_object
+
+@dataclass
 
 # Model selection
 models = {'Linear regression': LinearRegression(),
