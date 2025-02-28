@@ -11,6 +11,14 @@ def save_object(file_path, obj):
 
 def evaluate_model(X_train, y_train, X_test, y_test, models):
     try:
-        pass
+        report = {}
+
+        for i in range(len(list(models))):
+            model = list(models.values())[i]
+
+            # Train model
+            model.fit(X_train, y_train)
+            y_train_pred = model.predict(X_train)
+            y_test_pred = model.predict(X_test)
     except:
         pass
