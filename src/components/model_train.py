@@ -20,7 +20,8 @@ class ModelTrainer:
 
     def initiate_model_trainer(self, train_array, test_array, preprocessor_path):
         try:
-            pass
+            logging.info('Split train and test input data')
+            X_train, y_train, X_test, y_test = ()
         except:
             pass
 
