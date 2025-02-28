@@ -16,7 +16,13 @@ class ModelTrainerConfig:
 
 class ModelTrainer:
     def __init__(self):
-        self.
+        self.model_trainer_config = ModelTrainerConfig()
+
+    def initiate_model_trainer(self, train_array, test_array, preprocessor_path):
+        try:
+            pass
+        except:
+            pass
 
 # Model selection
 models = {'Linear regression': LinearRegression(),
