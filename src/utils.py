@@ -2,6 +2,7 @@ import os
 import sys
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import RandomizedSearchCV
 
 def save_object(file_path, obj):
     try:
@@ -15,6 +16,9 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
 
         for i in range(len(list(models))):
             model = list(models.values())[i]
+            para = param[list(models.keys())[i]]
+
+            gs = RandomizedSearchCV
 
             # Train model
             model.fit(X_train, y_train)
