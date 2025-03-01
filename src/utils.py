@@ -18,7 +18,9 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
             model = list(models.values())[i]
             para = param[list(models.keys())[i]]
 
-            gs = RandomizedSearchCV
+            # Perform randomized grid search on train data 
+            gs = RandomizedSearchCV(model, para, cv=cv, n_jobs=n_jobs)
+            gs.fit(X_train, y_train)
 
             # Train model
             model.fit(X_train, y_train)
