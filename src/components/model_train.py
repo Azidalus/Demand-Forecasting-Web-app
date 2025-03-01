@@ -23,9 +23,9 @@ class ModelTrainer:
             logging.info('Split train and test input data')
             X_train, y_train, X_test, y_test = (
                 train_array[:,:-1],
-                train_array[:,:-1],
+                train_array[:,-1],
                 test_array[:,:-1],
-                test_array[:,:-1]
+                test_array[:,-1]
             )
 
             models = {'Linear regression': LinearRegression(),
@@ -60,8 +60,8 @@ class ModelTrainer:
 
             return test_score
 
-        except:
-            pass
+        except Exception as e:
+            raise CustomException(e, sys)
 
 
 results = []
