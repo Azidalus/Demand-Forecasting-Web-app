@@ -55,7 +55,10 @@ class ModelTrainer:
                 obj = best_model
             )
 
-            
+            y_pred = best_model.predict(X_test)
+            test_score = score(y_test, y_pred)
+
+            return test_score
 
         except:
             pass
