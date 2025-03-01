@@ -47,7 +47,15 @@ class ModelTrainer:
 
             if best_model_score < 0.6:
                 raise CustomException("Best model's score is < 0.6")
-            logging.info('')
+            logging.info('Found best model on both train and test datasets')
+
+            # Save best model
+            save_object(
+                file_path = self.model_trainer_config.trained_model_file_path,
+                obj = best_model
+            )
+
+            
 
         except:
             pass
