@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
-# Paths to raw, train and test data files
+# Config with paths to raw, train and test data files
 @dataclass
 class DataIngestionConfig:
     raw_data_path: str = os.path.join('artifacts', 'raw.csv')
@@ -40,3 +40,7 @@ class DataIngestion:
 
         except Exception as e:
             raise CustomException(e, sys)
+        
+if __name__ == '__name__':
+    obj = DataIngestion()
+    obj.initiate_data_ingestion()
