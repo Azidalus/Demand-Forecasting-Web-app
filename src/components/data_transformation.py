@@ -54,6 +54,8 @@ class DataTransformation:
             numerical_columns = ['']
             # Features
             input_features_train_df = train_df('date')
+            target_feature_train_df = train_df(target_column_name)
+            input_features_test_df = test_df('date')
             target_feature_test_df = test_df(target_column_name)
 
             logging.info('Applying preprocessing object on train and test df')
