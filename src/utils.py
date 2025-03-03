@@ -30,5 +30,10 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
 
             train_model_score = score(y_train, y_train_pred)
             test_model_score = score(y_test, y_test_pred)
-    except:
-        pass
+
+            report[list(models.keys())[i]] = test_model_score
+
+        return report
+
+    except Exception as e:
+            raise CustomException(e, sys)
