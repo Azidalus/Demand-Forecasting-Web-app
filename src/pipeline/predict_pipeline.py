@@ -10,6 +10,7 @@ class PredictPipeline:
     def predict(self, features):
         model_path = 'artifacts\model.pkl'
         preprocessor_path = 'artifacts\preprocessor.pkl'
+        model = load_object(file_path=model_path)
 
 class CustomData:
     def __init__(self,
