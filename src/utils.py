@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import RandomizedSearchCV
+from src.exception import CustomException
 
 def save_object(file_path, obj):
     try:
