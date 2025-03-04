@@ -27,3 +27,5 @@ def predict_datapoint():
 
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(data_df)
+        
+        return render_template('home.html', results=results[0])
