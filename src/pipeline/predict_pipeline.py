@@ -30,7 +30,8 @@ class CustomData:
     def get_data_as_dataframe(self):
         try:
             custom_data_input_dict = {
-                'feature1': [self.feature1],
+                'date': [self.date],
+                'sales': [self.sales],
             }
 
             return pd.DataFrame(custom_data_input_dict)
