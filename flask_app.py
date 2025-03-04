@@ -22,4 +22,8 @@ def predict_datapoint():
         )
 
         # Convert it to pandas df
-        pred_df = data.get_data_as_dataframe()
+        data_df = data.get_data_as_dataframe()
+        print(data_df)
+
+        predict_pipeline = PredictPipeline()
+        results = predict_pipeline.predict(data_df)
