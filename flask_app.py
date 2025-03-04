@@ -15,10 +15,11 @@ def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
     else:
-        # 
+        # Get data from forms
         data = CustomData(
             date = request.form.get('date'),
             sales = request.form.get('sales')
         )
 
+        # Convert it to pandas df
         pred_df = data.get_data_as_dataframe()

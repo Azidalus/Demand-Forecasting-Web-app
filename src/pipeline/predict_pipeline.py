@@ -23,9 +23,11 @@ class PredictPipeline:
 
 class CustomData:
     def __init__(self,
-        feature1: date): 
+                 date: datetime,
+                 sales: int): 
 
-        self.feature1 = feature1
+        self.date = date
+        self.sales = sales
 
     def get_data_as_dataframe(self):
         try:
