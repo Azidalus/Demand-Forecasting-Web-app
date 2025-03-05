@@ -1,15 +1,23 @@
 <html>  
-<head>  
-    <title>Uploading & Reading CSV file</title>  
-</head>  
-<body>  
-    <form method = "POST" enctype="multipart/form-data" action = "/">    
-        <input type="file" name="file" accept=".csv">
-        <input type = "submit" value="Upload">  
-    </form>
-    <p style="color:blue;">Choose csv file to upload</p>
-  <form action="/show_data" target="_blank">
-        <input type="submit" value="Show CSV"/>
-    </form>
-</body>  
+<body>
+    <div class ="mb-3">
+        <label class="form-label">Forecast horizon</label>
+        <select class="form-control" name="forecast-horizon" placeholder="Forecast horizon" required>
+            <option class="placeholder" selected disabled value="">Select Forecast horizon</option>
+            <option value="week">1 week</option>
+            <option value="2weeks">2 weeks</option>
+            <option value="month">1 month</option>
+        </select>
+    </div>
+    <head>  
+        <title>Uploading & Reading CSV file</title>  
+    </head>  
+    <body>  
+        <form method="POST" enctype="multipart/form-data" action="/">    
+            <input type="file" name="file" accept=".csv">
+            <input type="submit" value="Upload">  
+        </form>
+        <p style="color:black;">Choose CSV file to upload</p>
+    </body>  
+</body>
 </html>
