@@ -5,6 +5,8 @@ import pandas as pd
 import os
 from src.pipeline.train_pipeline import TrainPipeline
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
+from src.components.data_ingestion import DataIngestion
+from src.components.data_transformation import DataTransformation
 
 app = Flask(__name__)
 
