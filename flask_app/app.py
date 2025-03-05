@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import numpy as np
 import pandas as pd
+import os
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
 app = Flask(__name__)
@@ -15,13 +16,23 @@ def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
     else:
-        # Get data from forms
-        data = CustomData(
+        
+        #data = CustomData(
             #date = request.form.get('date'),
             #sales = request.form.get('sales')
-            csv file!
-        )
+        #    csv file!
+        #)
+
+        # Get data from forms
         forecast_horizon = request.form.get('forecast_horizon')
+        data_in_csv = request.files.get('file')
+        # Extract uploaded file name
+        data_filename = secure_filename(data_in_csv.filename)
+        data_in_csv.save(os.path.join(app.config['UPLOAD_FOLDER'], data_filename))
+        session['uploaded_data_file_path'] = os.path.join(app.config['UPLOAD_FOLDER'],
+                                             data_filename)
+ 
+        #return render_template('index2.html')
 
         # Convert data to pandas df
         #data_df = data.get_data_as_dataframe()
