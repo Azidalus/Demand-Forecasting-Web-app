@@ -7,13 +7,13 @@ class PredictPipeline:
     def __init__(self):
         pass
 
-    def predict(self, features):
+    def predict(self, data):
         try:
             model_path = 'artifacts\model.pkl'
             preprocessor_path = 'artifacts\preprocessor.pkl'
             model = load_object(file_path=model_path)
             preprocessor = load_object(file_path=preprocessor_path)
-            data_preprocessed = preprocessor.transform(features)
+            data_preprocessed = preprocessor.transform(data)
             predictions = model.predict(data_preprocessed)
            
             return predictions
@@ -22,22 +22,22 @@ class PredictPipeline:
             raise CustomException(e, sys)  
 
 
-class CustomData:
-    def __init__(self,
-                 date: datetime,
-                 sales: int): 
+# class CustomData:
+#     def __init__(self,
+#                  date: datetime,
+#                  sales: int): 
 
-        self.date = date
-        self.sales = sales
+#         self.date = date
+#         self.sales = sales
 
-    def get_data_as_dataframe(self):
-        try:
-            custom_data_input_dict = {
-                'date': [self.date],
-                'sales': [self.sales],
-            }
+#     def get_data_as_dataframe(self):
+#         try:
+#             custom_data_input_dict = {
+#                 'date': [self.date],
+#                 'sales': [self.sales],
+#             }
 
-            return pd.DataFrame(custom_data_input_dict)
+#             return pd.DataFrame(custom_data_input_dict)
         
-        except Exception as e:
-            raise CustomException(e, sys)
+#         except Exception as e:
+#             raise CustomException(e, sys)

@@ -17,15 +17,29 @@ def predict_datapoint():
     else:
         # Get data from forms
         data = CustomData(
-            date = request.form.get('date'),
-            sales = request.form.get('sales')
+            #date = request.form.get('date'),
+            #sales = request.form.get('sales')
+            csv file!
         )
+        forecast_horizon = request.form.get('forecast_horizon')
 
-        # Convert it to pandas df
-        data_df = data.get_data_as_dataframe()
-        print(data_df)
-
-        predict_pipeline = PredictPipeline()
-        results = predict_pipeline.predict(data_df)
+        # Convert data to pandas df
+        #data_df = data.get_data_as_dataframe()
+        #print(data_df)
+        # Receive data and split it into train and test CSV files
+        data_ingestion = DataIngestion()
+        train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=data)
         
-        return render_template('home.html', results=results[0])
+        # Preprocess data
+        data_transformation = DataTransformation()
+        train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_path, test_path)
+
+        # Train models, choose the best model and save it as .pkl 
+        train_pipeline = TrainPipeline()
+        test_score = train_pipeline.train(train_arr, test_arr, forecast_horizon)
+
+        # Make prediction with the best model
+        predict_pipeline = PredictPipeline()
+        results = predict_pipeline.predict(test_arr, forecast_horizon)
+        
+        return render_template('home.html', accuracy=test_score*100,results=results[0])
