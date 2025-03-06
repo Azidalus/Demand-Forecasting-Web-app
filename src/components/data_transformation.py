@@ -31,6 +31,7 @@ class DataTransformation:
             num_pipeline = Pipeline(
                 steps = [
                     ('imputer', SimpleImputer(strategy='median'))
+                    # outlier removal
                 ]    
             )
             logging.info('Numerical columns encoding completed')
