@@ -18,11 +18,12 @@ class DataTransformationConfig:
 
 class DataTransformation:
     def __init__(self):
-        self.data_transformation_config =DataTransformationConfig()
+        self.data_transformation_config = DataTransformationConfig()
 
     def get_data_transformer_object(self):
         try:
             numerical_columns = ['']
+            ['Week of year'] = data['date'].dt.week
 
             num_pipeline = Pipeline(
                 steps = [

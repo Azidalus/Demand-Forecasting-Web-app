@@ -31,7 +31,7 @@ class ModelTrainer:
             models = {'Linear regression': LinearRegression(),
                       'Ridge': Ridge(),
                       'Lasso': Lasso(),
-                      'XGBoost': XGBoost()}
+                      'XGBoost': XGBRegressor()}
 
             model_report:dict = evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, 
                                                models=models)
@@ -58,7 +58,7 @@ class ModelTrainer:
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
 
-            return test_score
+            return test_score, best_model
 
         except Exception as e:
             raise CustomException(e, sys)
