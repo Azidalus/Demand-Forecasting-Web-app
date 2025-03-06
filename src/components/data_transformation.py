@@ -56,7 +56,7 @@ class DataTransformation:
             logging.info('Obtaining preprocessing object')
             preprocessing_obj = self.get_data_transformer_object()
             target_column_name = 'sales'
-            numerical_columns = ['']
+            #feature_columns = ['date']
             # Features
             input_features_train_df = train_df('date')
             target_feature_train_df = train_df(target_column_name)
