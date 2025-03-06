@@ -23,7 +23,10 @@ class DataTransformation:
     def get_data_transformer_object(self):
         try:
             numerical_columns = ['']
-            ['Week of year'] = data['date'].dt.week
+            ['week_of_year'] = data['date'].dt.week
+            ['month'] = data['date'].dt.month
+            ['day_of_year'] = data['date'].dt.dayofyear
+            ['quarter'] = data['date'].dt.quarter
 
             num_pipeline = Pipeline(
                 steps = [
