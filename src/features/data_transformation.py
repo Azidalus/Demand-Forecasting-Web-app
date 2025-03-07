@@ -34,12 +34,13 @@ class DataTransformation:
         
     def preprocess():
         num_pipeline = Pipeline(
-            #     steps = [
-            #         ('imputer', SimpleImputer(strategy='mean'))
-            #         ('scaler', StandardScaler())
-            #         # outlier removal
-             ]    
+            steps = [
+                ('imputer', SimpleImputer(strategy='mean'))
+                ('scaler', StandardScaler())
+                # outlier removal
+            ]    
         )
+        return preprocessing_obj
         
     def initiate_data_transformation(self, train_path, test_path):
         try:
