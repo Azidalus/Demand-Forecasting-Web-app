@@ -32,6 +32,15 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e, sys)
         
+    def preprocess():
+        num_pipeline = Pipeline(
+            #     steps = [
+            #         ('imputer', SimpleImputer(strategy='mean'))
+            #         ('scaler', StandardScaler())
+            #         # outlier removal
+             ]    
+        )
+        
     def initiate_data_transformation(self, train_path, test_path):
         try:
             # Read data
@@ -61,13 +70,7 @@ class DataTransformation:
             input_features_train_arr = SimpleImputer(strategy='mean')
             #input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_df)
             #input_features_test_arr = preprocessing_obj.transform(input_features_test_df)
-            # num_pipeline = Pipeline(
-            #     steps = [
-            #         ('imputer', SimpleImputer(strategy='mean'))
-            #         ('scaler', StandardScaler())
-            #         # outlier removal
-            #     ]    
-            # )
+            # 
             # logging.info('Numerical columns encoding completed')
 
             # preprocessor = ColumnTransformer(
