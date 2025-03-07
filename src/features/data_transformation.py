@@ -20,14 +20,14 @@ class DataTransformation:
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
 
-    def get_data_transformer_object(self):
+    def create time features(self, data):
         try:
-            numerical_columns = ['week_of_year', 'month', 'day_of_year', ]
             ['week_of_year'] = data['date'].dt.week
             ['month'] = data['date'].dt.month
             ['day_of_year'] = data['date'].dt.dayofyear
             ['quarter'] = data['date'].dt.quarter
             ['day_of_month'] = data['date'].dt.quarter
+            
 
             num_pipeline = Pipeline(
                 steps = [
@@ -59,10 +59,13 @@ class DataTransformation:
             #logging.info('Obtaining preprocessing object')
             #preprocessing_obj = self.get_data_transformer_object()
             
-            target_column_name = 'sales'
-            #feature_columns = ['date']
+            # Create time features
+            
 
-            # Features
+            target_column_name = 'sales'
+            numerical_columns = ['week_of_year','month','day_of_year','quarter','day_of_month']
+
+            # Split df by train/test and feature type
             input_features_train_df = train_df('date')
             target_feature_train_df = train_df(target_column_name)
             input_features_test_df = test_df('date')
