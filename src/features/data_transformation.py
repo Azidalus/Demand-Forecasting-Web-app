@@ -20,31 +20,14 @@ class DataTransformation:
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
 
-    def create time features(self, data):
+    def create_features(self, data):
         try:
             ['week_of_year'] = data['date'].dt.week
             ['month'] = data['date'].dt.month
             ['day_of_year'] = data['date'].dt.dayofyear
             ['quarter'] = data['date'].dt.quarter
             ['day_of_month'] = data['date'].dt.quarter
-            
-
-            num_pipeline = Pipeline(
-                steps = [
-                    ('imputer', SimpleImputer(strategy='mean'))
-                    ('scaler', StandardScaler())
-                    # outlier removal
-                ]    
-            )
-            logging.info('Numerical columns encoding completed')
-
-            preprocessor = ColumnTransformer(
-                [
-                    ('num_pipeline', num_pipeline, numerical_columns)
-                ]
-            )
-
-            return preprocessor
+            return data
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -60,7 +43,7 @@ class DataTransformation:
             #preprocessing_obj = self.get_data_transformer_object()
             
             # Create time features
-            
+            create_features(train_df)
 
             target_column_name = 'sales'
             numerical_columns = ['week_of_year','month','day_of_year','quarter','day_of_month']
