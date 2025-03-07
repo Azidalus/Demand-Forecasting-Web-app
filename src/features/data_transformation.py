@@ -45,7 +45,7 @@ class DataTransformation:
             # Create time features
             train_df = self.create_features(train_df)
             test_df = self.create_features(test_df)
-            logging.info('Features')
+            logging.info('Features successfully created')
 
             target_column_name = 'sales'
             numerical_columns = ['week_of_year','month','day_of_year','quarter','day_of_month']
@@ -57,8 +57,24 @@ class DataTransformation:
             target_feature_test_df = test_df(target_column_name)
 
             logging.info('Applying preprocessing object on train and test df')
-            input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_df)
-            input_features_test_arr = preprocessing_obj.transform(input_features_test_df)
+            #logging.info('Applying preprocessing object on train and test df')
+            input_features_train_arr
+            #input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_df)
+            #input_features_test_arr = preprocessing_obj.transform(input_features_test_df)
+            # num_pipeline = Pipeline(
+            #     steps = [
+            #         ('imputer', SimpleImputer(strategy='mean'))
+            #         ('scaler', StandardScaler())
+            #         # outlier removal
+            #     ]    
+            # )
+            # logging.info('Numerical columns encoding completed')
+
+            # preprocessor = ColumnTransformer(
+            #     [
+            #         ('num_pipeline', num_pipeline, numerical_columns)
+            #     ]
+            # )
 
             # Combine input and target features into train/test sets
             logging.info('Combining input and target features into train/test sets')
