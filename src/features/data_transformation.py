@@ -31,7 +31,8 @@ class DataTransformation:
 
             num_pipeline = Pipeline(
                 steps = [
-                    ('imputer', SimpleImputer(strategy='median'))
+                    ('imputer', SimpleImputer(strategy='mean'))
+                    ('scaler', StandardScaler())
                     # outlier removal
                 ]    
             )
