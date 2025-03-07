@@ -20,14 +20,14 @@ class DataTransformation:
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
 
-    def create_features(self, data):
+    def create_features(self, df):
         try:
-            ['week_of_year'] = data['date'].dt.week
-            ['month'] = data['date'].dt.month
-            ['day_of_year'] = data['date'].dt.dayofyear
-            ['quarter'] = data['date'].dt.quarter
-            ['day_of_month'] = data['date'].dt.quarter
-            return data
+            ['week_of_year'] = df['date'].dt.week
+            ['month'] = df['date'].dt.month
+            ['day_of_year'] = df['date'].dt.dayofyear
+            ['quarter'] = df['date'].dt.quarter
+            ['day_of_month'] = df['date'].dt.quarter
+            return df
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -43,7 +43,9 @@ class DataTransformation:
             #preprocessing_obj = self.get_data_transformer_object()
             
             # Create time features
-            create_features(train_df)
+            train_df = self.create_features(train_df)
+            test_df = self.create_features(test_df)
+            logging.info('Features')
 
             target_column_name = 'sales'
             numerical_columns = ['week_of_year','month','day_of_year','quarter','day_of_month']
