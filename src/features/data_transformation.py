@@ -56,9 +56,9 @@ class DataTransformation:
             input_features_test_df = test_df('date')
             target_feature_test_df = test_df(target_column_name)
 
-            logging.info('Applying preprocessing object on train and test df')
+            logging.info('Preprocessing train/test dfs')
             #logging.info('Applying preprocessing object on train and test df')
-            input_features_train_arr
+            input_features_train_arr = SimpleImputer(strategy='mean')
             #input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_df)
             #input_features_test_arr = preprocessing_obj.transform(input_features_test_df)
             # num_pipeline = Pipeline(
