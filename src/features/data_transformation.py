@@ -27,6 +27,7 @@ class DataTransformation:
             ['month'] = data['date'].dt.month
             ['day_of_year'] = data['date'].dt.dayofyear
             ['quarter'] = data['date'].dt.quarter
+            ['day_of_month'] = data['date'].dt.quarter
 
             num_pipeline = Pipeline(
                 steps = [
@@ -53,8 +54,9 @@ class DataTransformation:
             test_df = pd.read_csv(test_path)
             logging.info('Read train and test data completed')
 
-            logging.info('Obtaining preprocessing object')
-            preprocessing_obj = self.get_data_transformer_object()
+            #logging.info('Obtaining preprocessing object')
+            #preprocessing_obj = self.get_data_transformer_object()
+            
             target_column_name = 'sales'
             #feature_columns = ['date']
             # Features
@@ -73,16 +75,16 @@ class DataTransformation:
             test_arr = np.c_[input_features_test_arr, np.array(target_feature_test_df)]
             
 
-            save_object(
-                file_path = self.data_transformation_config.preprocessor_obj_file_path,
-                obj = preprocessing_obj
-            )
-            logging.info('Saved preprocessing object')
+            # save_object(
+            #     file_path = self.data_transformation_config.preprocessor_obj_file_path,
+            #     obj = preprocessing_obj
+            # )
+            # logging.info('Saved preprocessing object')
 
             return(
                 train_arr,
                 test_arr,
-                self.data_transformation_config.preprocessor_obj_file_path,
+                #self.data_transformation_config.preprocessor_obj_file_path,
             )
         
         except Exception as e:
