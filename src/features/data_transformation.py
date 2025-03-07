@@ -22,7 +22,7 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         try:
-            numerical_columns = ['']
+            numerical_columns = ['week_of_year', 'month', 'day_of_year', ]
             ['week_of_year'] = data['date'].dt.week
             ['month'] = data['date'].dt.month
             ['day_of_year'] = data['date'].dt.dayofyear
@@ -51,6 +51,7 @@ class DataTransformation:
         
     def initiate_data_transformation(self, train_path, test_path):
         try:
+            # Read data
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
             logging.info('Read train and test data completed')
@@ -60,6 +61,7 @@ class DataTransformation:
             
             target_column_name = 'sales'
             #feature_columns = ['date']
+
             # Features
             input_features_train_df = train_df('date')
             target_feature_train_df = train_df(target_column_name)
