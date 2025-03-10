@@ -1,10 +1,10 @@
 import os
 import sys
-from data_ingestion.py import
+#from data_ingestion.py import
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.model_selection import RandomizedSearchCV, cross_validate, TimeSeriesSplit
+from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error
 from dataclasses import dataclass
 from src.exception import CustomException
 from src.logger import logging
@@ -34,7 +34,7 @@ class ModelTrainer:
                       'XGBoost': XGBRegressor()}
 
             model_report:dict = evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, 
-                                               models=models)
+                                                models=models)
             
             # Get best model score from dict
             best_model_score = max(sorted(model_report.values()))
