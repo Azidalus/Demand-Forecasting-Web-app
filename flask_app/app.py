@@ -47,8 +47,8 @@ if st.session_state['predict_btn'] == 1:
 
     # Train models, choose the best model and save it as .pkl 
     # Train simple regression model
-    #train_pipeline = TrainPipeline()
-    #test_score = train_pipeline.train(train_arr, test_arr, forecast_horizon)
+    train_pipeline = TrainPipeline()
+    test_score = train_pipeline.train(train_arr, test_arr)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
