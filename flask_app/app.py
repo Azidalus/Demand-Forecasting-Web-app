@@ -29,9 +29,6 @@ if uploaded_CSV:
     # Display next part of app
     st.selectbox('Forecast for: ', '1 week')
     st.button('Predict', on_click=set_state())
-
-    # Read data
-    df = pd.read_csv(uploaded_CSV)
 else:
     pass
 
@@ -41,7 +38,8 @@ if st.session_state['predict_btn'] == 1:
     #   time.sleep(0.01)
     #   progress_bar.progress(percent_complete + 1, text=progress_text)
     # Receive data and split it into train and test CSV files
-    train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=data_in_csv)
+    data_ingestion = DataIngestion()
+    train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=uploaded_CSV)
         
     # Preprocess data
     data_transformation = DataTransformation()
