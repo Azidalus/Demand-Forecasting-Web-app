@@ -42,17 +42,18 @@ if st.session_state['predict_btn'] == 1:
     #   progress_bar.progress(percent_complete + 1, text=progress_text)
     train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=data_in_csv)
         
-    #     # Preprocess data
-    #     data_transformation = DataTransformation()
-    #     train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_path, test_path)
+    # Preprocess data
+    data_transformation = DataTransformation()
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_path, test_path)
 
-    #     # Train models, choose the best model and save it as .pkl 
-    #     train_pipeline = TrainPipeline()
-    #     test_score = train_pipeline.train(train_arr, test_arr, forecast_horizon)
+    # Train models, choose the best model and save it as .pkl 
+    # Train simple regression model
+    train_pipeline = TrainPipeline()
+    test_score = train_pipeline.train(train_arr, test_arr, forecast_horizon)
 
-    #     # Make prediction with the best model
-    #     predict_pipeline = PredictPipeline()
-    #     results = predict_pipeline.predict(test_arr, forecast_horizon)
+    # Make prediction with the best model
+    predict_pipeline = PredictPipeline()
+    results = predict_pipeline.predict(test_arr, forecast_horizon)
 
 
 #app = Flask(__name__)
