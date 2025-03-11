@@ -9,25 +9,37 @@ import os
 #from src.components.data_ingestion import DataIngestion
 #from src.features.data_transformation import DataTransformation
 
+def set_state():
+    st.session_state['predict_btn'] = 1
 
+# Flag to indicate that 'Predict' button was pressed and prediction initiated
+st.session_state['predict_btn'] = 0
+
+# Display starter elements
 st.title('Demand forecasting')
-st.markdown('Upload your sales data as CSV file containing 2 columns named Date and Sales')
+st.markdown('Upload your sales data as a CSV file. \nThe file *must* contain 2 columns named `date` and `sales`')
 uploaded_CSV = st.file_uploader('Choose file', type='csv')
 
+# When CSV is uploaded, do:
 if uploaded_CSV: 
     # Save file in project's local 'data' folder
-    with open(os.path.join('data', uploaded_CSV.name), "wb") as f:
-        f.write(uploaded_CSV.getbuffer())
+    #with open(os.path.join('data', uploaded_CSV.name), "wb") as f:
+    #   f.write(uploaded_CSV.getbuffer())
 
     # Display next part of app
     st.selectbox('Forecast for: ', '1 week')
-    st.button('Predict')
+    st.button('Predict', on_click=set_state())
 
     # Read data
     df = pd.read_csv(uploaded_CSV)
 else:
     pass
-    #st.warning('Only CSV files are accepted')
+
+if st.session_state['predict_btn'] == 1:
+    progress_bar = st.progress(0)
+    #for percent_complete in range(100):
+    #   time.sleep(0.01)
+    #   progress_bar.progress(percent_complete + 1, text=progress_text)
 
 
 #app = Flask(__name__)
