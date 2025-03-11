@@ -10,8 +10,10 @@
 Many companies are interested in demand forecasting to have appropriate levels of products in stock. This project aims to develop a web-application where demand planners can upload their historical sales data of a product and receive demand forecast. The app features various forecasting models and .
 
 ## How to use
-1. Upload your historical sales data as a CSV file
+Go to [link]
+1. Upload your historical sales data as a CSV file or use a demo file
 2. Specify parameters you want (e.g. forecast horizon)
+3. Get predictions!
 
 ## Backend architecture
 AWS cloud \
