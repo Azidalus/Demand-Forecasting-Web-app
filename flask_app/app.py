@@ -13,10 +13,18 @@ import os
 st.title('Demand forecasting')
 st.markdown('Upload your sales data as CSV file containing 2 columns named Date and Sales')
 uploaded_CSV = st.file_uploader('Choose file', type='csv')
-if uploaded_CSV:
-    df = pd.read_csv(uploaded_CSV)
+
+if uploaded_CSV: 
+    # Save file in project's local 'data' folder
+    with open(os.path.join('data', uploaded_CSV.name), "wb") as f:
+        f.write(uploaded_CSV.getbuffer())
+
+    # Display next part of app
     st.selectbox('Forecast for: ', '1 week')
     st.button('Predict')
+
+    # Read data
+    df = pd.read_csv(uploaded_CSV)
 else:
     pass
     #st.warning('Only CSV files are accepted')
