@@ -6,8 +6,8 @@ import pandas as pd
 import os
 #from src.pipeline.train_pipeline import TrainPipeline
 #from src.pipeline.predict_pipeline import CustomData, PredictPipeline
-#from src.components.data_ingestion import DataIngestion
-#from src.features.data_transformation import DataTransformation
+from src.components.data_ingestion import DataIngestion
+from src.features.data_transformation import DataTransformation
 
 def set_state():
     st.session_state['predict_btn'] = 1
@@ -40,6 +40,7 @@ if st.session_state['predict_btn'] == 1:
     #for percent_complete in range(100):
     #   time.sleep(0.01)
     #   progress_bar.progress(percent_complete + 1, text=progress_text)
+    # Receive data and split it into train and test CSV files
     train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=data_in_csv)
         
     # Preprocess data
@@ -48,8 +49,8 @@ if st.session_state['predict_btn'] == 1:
 
     # Train models, choose the best model and save it as .pkl 
     # Train simple regression model
-    train_pipeline = TrainPipeline()
-    test_score = train_pipeline.train(train_arr, test_arr, forecast_horizon)
+    #train_pipeline = TrainPipeline()
+    #test_score = train_pipeline.train(train_arr, test_arr, forecast_horizon)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
