@@ -12,12 +12,14 @@ import os
 
 st.title('Demand forecasting')
 st.markdown('Upload your sales data as CSV file containing 2 columns named Date and Sales')
-uploaded_CSV = st.file_uploader('Choose file')
+uploaded_CSV = st.file_uploader('Choose file', type='csv')
 if uploaded_CSV:
     df = pd.read_csv(uploaded_CSV)
     st.selectbox('Forecast for: ', '1 week')
+    st.button('Predict')
 else:
-    st.warning('Only CSV files are accepted')
+    pass
+    #st.warning('Only CSV files are accepted')
 
 
 #app = Flask(__name__)
