@@ -59,9 +59,10 @@ class ModelTrainer:
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
             '''
-            param_grid = param['']
+            model = LinearRegression()
+            param_grid = param['LinearRegression']
 
-            time_series_cv = TimeSeriesSplit(n_splits=6)
+            time_series_cv = TimeSeriesSplit(n_splits=6, test_size=7)
             gs = GridSearchCV(model, cv=time_series_cv, param_grid=param_grid)
             gs.fit(X, y)
             results.append(cv['test_score'].mean())
