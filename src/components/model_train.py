@@ -3,7 +3,7 @@ import sys
 #from data_ingestion.py import
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
-from sklearn.model_selection import RandomizedSearchCV, cross_validate, TimeSeriesSplit
+from sklearn.model_selection import GridSearchCV, cross_validate, TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error
 from dataclasses import dataclass
 from src.exception import CustomException
@@ -18,8 +18,9 @@ class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def initiate_model_trainer(self, train_array, test_array, preprocessor_path):
+    def initiate_model_trainer(self, X, y, preprocessor_path):
         try:
+            '''
             logging.info('Split train and test input data')
             X_train, y_train, X_test, y_test = (
                 train_array[:,:-1],
@@ -57,27 +58,15 @@ class ModelTrainer:
 
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
+            '''
+            param_grid = param['']
+
+            time_series_cv = TimeSeriesSplit(n_splits=6)
+            gs = GridSearchCV(model, cv=time_series_cv, param_grid=param_grid)
+            gs.fit(X, y)
+            results.append(cv['test_score'].mean())
 
             return test_score, best_model
 
         except Exception as e:
             raise CustomException(e, sys)
-
-
-results = []
-
-for model in models.values():
-    kf = KFold
-    cv_results = 
-    results.append(cv_results)
-
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    test_score = model.score(X_test, y_test)
-    print("{} Test Set Accuracy: {}".format(name, test_score))
-
-# Final model fine tuning
-param_grid = {}
-kf = KFold
-chosen_model_cv = GridSearchCV(model, param_grid, cv=kf)
-chosen_model_cv.fit(X_train, y_train)
