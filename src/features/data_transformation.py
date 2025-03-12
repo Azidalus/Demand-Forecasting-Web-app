@@ -42,7 +42,7 @@ class DataTransformation:
         )
         return preprocessing_obj
         
-    def initiate_data_transformation(self, train_path, test_path):
+    def initiate_data_transformation(self, df):
         try:
             # Read data
             train_df = pd.read_csv(train_path)
@@ -97,6 +97,15 @@ class DataTransformation:
                 test_arr,
                 #self.data_transformation_config.preprocessor_obj_file_path,
             )
+
+            df = self.create_features(df)
+            logging.info('Features successfully created')
+
+            how to scale???
+        
+
+
+            return(X, y)
         
         except Exception as e:
             raise CustomException(e, sys)
