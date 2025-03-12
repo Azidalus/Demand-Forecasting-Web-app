@@ -3,25 +3,26 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, TimeSeriesSplit
 from dataclasses import dataclass
-from src.components.data_transformation import DataTransformation
+from src.features.data_transformation import DataTransformation
 from src.components.model_train import ModelTrainer
 
 # Config with paths to raw, train and test data files
 @dataclass
 class DataIngestionConfig:
-    raw_data_path: str = os.path.join('artifacts', 'raw.csv')
-    train_data_path: str = os.path.join('artifacts', 'train.csv')
-    test_data_path: str = os.path.join('artifacts', 'test.csv')
+    raw_data_path: str = os.path.join('data', 'raw.csv')
+    train_data_path: str = os.path.join('data', 'train.csv')
+    test_data_path: str = os.path.join('data', 'test.csv')
     
 class DataIngestion:
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
 
-    def initiate_data_ingestion(self, data_in_csv):
+    def initiate_data_ingestion(self, CSV_obj):
         logging.info('Entered the data ingestion component')
         try:
+            '''
             #df = pd.read_csv('data\file.csv')
             df = pd.read_csv(data_in_csv)
             logging.info('Read the dataset as dataframe')
@@ -42,17 +43,24 @@ class DataIngestion:
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
             )
+            '''
+            # Save file in project's local 'data' folder
+            #with open(os.path.join('data', CSV_obj.name), "wb") as f:
+            #   f.write(CSV_obj.getbuffer())
+            # Convert to df
+            data_df = pd.read_csv(CSV_obj)
+            return data_df
 
         except Exception as e:
             raise CustomException(e, sys)
         
-if __name__ == '__name__':
-    obj = DataIngestion()
-    train_path, test_path = obj.initiate_data_ingestion()
+# if __name__ == '__name__':
+#     obj = DataIngestion()
+#     train_path, test_path = obj.initiate_data_ingestion()
 
-    data_transformation = DataTransformation()
-    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_path, test_path)
+#     data_transformation = DataTransformation()
+#     train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_path, test_path)
 
-    model_trainer = ModelTrainer()
-    model_trainer.initiate_model_trainer(train_arr, test_arr)
-    print(model_trainer.initiate_model_trainer(train_arr, test_arr))
+#     model_trainer = ModelTrainer()
+#     model_trainer.initiate_model_trainer(train_arr, test_arr)
+#     print(model_trainer.initiate_model_trainer(train_arr, test_arr))
