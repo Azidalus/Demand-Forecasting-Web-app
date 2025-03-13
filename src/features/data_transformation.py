@@ -32,7 +32,7 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e, sys)
         
-    def preprocess():
+    def preprocess(df, scale):
         # convert date to dt
         num_pipeline = Pipeline(
             steps = [
@@ -41,9 +41,12 @@ class DataTransformation:
                 # outlier removal
             ]    
         )
+        # Scale data if needed
+
+
         return preprocessing_obj
         
-    def initiate_data_transformation(self, df, create_time_ftrs=False):
+    def initiate_data_transformation(self, df, scale=False, create_time_ftrs=False):
         try:
             '''
             # Read data
@@ -106,12 +109,14 @@ class DataTransformation:
 
             # Create time features if needed
             if create_time_ftrs:
-                df = self.create_features(df)
+                df = self.create_features(df, scale=scale)
                 logging.info('Features successfully created')
 
             how to scale???
         
-
+            X = df.drop(['Sales'])
+            y = df['Sales']
+            logging.info('Data successfully split')
 
             return(X, y)
         
