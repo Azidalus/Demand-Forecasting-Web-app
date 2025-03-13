@@ -14,11 +14,11 @@ from src.utils import save_object, evaluate_models
 class ModelTrainerConfig:
     trained_model_file_path = os.path.join('artifacts', 'model.pkl')
 
-class ModelTrainer:
+class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def initiate_model_trainer(self, X, y, preprocessor_path):
+    def train(self, X, y, preprocessor_path):
         try:
             '''
             logging.info('Split train and test input data')
