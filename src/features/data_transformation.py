@@ -33,6 +33,7 @@ class DataTransformation:
             raise CustomException(e, sys)
         
     def preprocess():
+        # convert date to dt
         num_pipeline = Pipeline(
             steps = [
                 ('imputer', SimpleImputer(strategy='mean'))
@@ -44,7 +45,7 @@ class DataTransformation:
         
     def initiate_data_transformation(self, df, create_time_ftrs=False):
         try:
-            ''''''
+            '''
             # Read data
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
@@ -98,7 +99,9 @@ class DataTransformation:
                 test_arr,
                 #self.data_transformation_config.preprocessor_obj_file_path,
             )
-
+            '''
+            # Do later
+            # df = preprocess()
             df = self.create_features(df)
             logging.info('Features successfully created')
 
