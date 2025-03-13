@@ -101,9 +101,13 @@ class DataTransformation:
             )
             '''
             # Do later
-            # df = preprocess()
-            df = self.create_features(df)
-            logging.info('Features successfully created')
+            #df = preprocess()
+            #logging.info('Data preprocessing completed')
+
+            # Create time features if needed
+            if create_time_ftrs:
+                df = self.create_features(df)
+                logging.info('Features successfully created')
 
             how to scale???
         
