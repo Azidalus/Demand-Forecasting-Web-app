@@ -19,7 +19,7 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def train(self, X, y, preprocessor_path):
+    def train(self, all_data, preprocessor_path=None):
         try:
             '''
             logging.info('Split train and test input data')
@@ -61,11 +61,13 @@ class TrainPipeline:
             test_score = score(y_test, y_pred)
             '''
             model = auto_arima()
-            train = df[['Date','Units']][:-90].set_index('Date')
-            test = df[['Date','Units']][-90:].set_index('Date')
+            train = all_data[['Date','Units']][:-30].set_index('Date')
+            test = all_data[['Date','Units']][-30:].set_index('Date')
             sarima = auto_arima(train, seasonal=True, m=7)
+            
             predictions = sarima.predict(n_periods=len(test))
-            rmse = root_mean_squared_error(test, predictions)
+            test_score = root_mean_squared_error(test, predictions)
+            best_model = auto_arima(all_data, seasonal=True, m=7)
 
             return test_score, best_model
 
