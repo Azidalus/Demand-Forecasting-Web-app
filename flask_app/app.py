@@ -37,17 +37,17 @@ if st.session_state['predict_btn'] == 1:
 
     # Receive data, save it, and convert to df
     data_ingestion = DataIngestion()
-    #train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=uploaded_CSV)
     data_df = data_ingestion.initiate_data_ingestion(CSV_obj=uploaded_CSV_obj)
+    #train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=uploaded_CSV)
         
     # Preprocess data
     data_transformation = DataTransformation()
-    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_path, test_path)
+    X, y = data_transformation.initiate_data_transformation(data_df)
 
     # Train models, choose the best model and save it as .pkl 
-    # Train simple regression model
+    # Train simple arima model
     train_pipeline = TrainPipeline()
-    test_score = train_pipeline.train(train_arr, test_arr)
+    test_score = train_pipeline.train(all_data)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
