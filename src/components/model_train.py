@@ -68,7 +68,9 @@ class TrainPipeline:
             predictions = sarima.predict(n_periods=len(test))
             test_score = root_mean_squared_error(test, predictions)
 
-            return test_score, predictions_graph, sarima_params
+            # Save test graph
+
+            return test_score, test_graph, sarima_params
 
         except Exception as e:
             raise CustomException(e, sys)
