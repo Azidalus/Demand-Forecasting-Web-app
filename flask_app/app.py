@@ -6,7 +6,7 @@ import pandas as pd
 import os
 #from src.pipeline.train_pipeline import TrainPipeline
 from src.components.model_train import TrainPipeline
-#from src.pipeline.predict_pipeline import CustomData, PredictPipeline
+from src.pipeline.predict_pipeline import PredictPipeline
 from src.components.data_ingestion import DataIngestion
 from src.features.data_transformation import DataTransformation
 
@@ -47,11 +47,11 @@ if st.session_state['predict_btn'] == 1:
     # Train models, choose the best model and save it as .pkl 
     # Train simple arima model
     train_pipeline = TrainPipeline()
-    test_score = train_pipeline.train(all_data)
+    test_score, test_preds, best_model = train_pipeline.train(all_data, forecast_horizon)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
-    results = predict_pipeline.predict(test_arr, forecast_horizon)
+    predictions = predict_pipeline.predict(all_data, forecast_horizon)
 
 
 #app = Flask(__name__)
