@@ -57,13 +57,16 @@ if st.session_state['predict_btn'] == 1:
     #test_graph
 
     # Output predictions graph
-    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["col1", "col2", "col3"])
+    chart_data = pd.DataFrame(columns=["Date", "All_data", "Preds"])
+    chart_data['Date'] = 
+    chart_data['All_data'] = 
+    chart_data['Date'] = 
 
     st.line_chart(
         chart_data,
-        x="col1",
-        y=["col2", "col3"],
-        color=["#FF0000", "#0000FF"],  # Optional
+        x="Date",
+        y=["All_data", "Preds"],
+        color=["#FF0000", "#0000FF"],  
     )
 
 

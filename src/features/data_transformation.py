@@ -112,9 +112,9 @@ class DataTransformation:
                 df = self.create_features(df, scale=scale)
                 logging.info('Features successfully created')
 
-            how to scale???
+            #how to scale???
         
-            X = df.drop(['Sales'])
+            X = df.drop(['Sales']).set_index('Date')
             y = df['Sales']
             logging.info('Data successfully split')
 
