@@ -47,11 +47,11 @@ if st.session_state['predict_btn'] == 1:
     # Train models, choose the best model and save it as .pkl 
     # Train simple arima model
     train_pipeline = TrainPipeline()
-    test_score, test_preds, best_model = train_pipeline.train(all_data, forecast_horizon)
+    test_score, predictions_graph, best_model = train_pipeline.train(all_data, forecast_horizon=30)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
-    predictions = predict_pipeline.predict(all_data, forecast_horizon)
+    predictions = predict_pipeline.predict(all_data, best_model, forecast_horizon=30)
 
 
 #app = Flask(__name__)

@@ -19,7 +19,7 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def train(self, all_data, preprocessor_path=None):
+    def train(self, all_data, forecast_horizon, preprocessor_path=None):
         try:
             '''
             logging.info('Split train and test input data')
@@ -61,15 +61,14 @@ class TrainPipeline:
             test_score = score(y_test, y_pred)
             '''
             model = auto_arima()
-            train = all_data[['Date','Units']][:-30].set_index('Date')
-            test = all_data[['Date','Units']][-30:].set_index('Date')
+            train = all_data[['Date','Units']][:-forecast_horizon].set_index('Date')
+            test = all_data[['Date','Units']][-forecast_horizon:].set_index('Date')
             sarima = auto_arima(train, seasonal=True, m=7)
-            
+            sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))
             test_score = root_mean_squared_error(test, predictions)
-            best_model = auto_arima(all_data, seasonal=True, m=7)
 
-            return test_score, best_model
+            return test_score, predictions_graph, sarima_params
 
         except Exception as e:
             raise CustomException(e, sys)
