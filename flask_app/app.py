@@ -53,11 +53,18 @@ if st.session_state['predict_btn'] == 1:
     predict_pipeline = PredictPipeline()
     predictions = predict_pipeline.predict(all_data, best_model_params, forecast_horizon=30)
 
-    # Output test predictions graph
+    # Output test predictions graph with error
     #test_graph
 
     # Output predictions graph
-    #
+    chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["col1", "col2", "col3"])
+
+    st.line_chart(
+        chart_data,
+        x="col1",
+        y=["col2", "col3"],
+        color=["#FF0000", "#0000FF"],  # Optional
+    )
 
 
 #app = Flask(__name__)
