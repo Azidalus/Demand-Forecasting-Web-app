@@ -1,8 +1,9 @@
 import os
 import sys
 #from data_ingestion.py import
-from sklearn.linear_model import LinearRegression, Ridge, Lasso
+#from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
+from pmdarima import auto_arima
 from sklearn.model_selection import GridSearchCV, cross_validate, TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error
 from dataclasses import dataclass
@@ -59,13 +60,12 @@ class TrainPipeline:
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
             '''
-            model = LinearRegression()
-            param_grid = param['LinearRegression']
-
-            time_series_cv = TimeSeriesSplit(n_splits=6, test_size=7)
-            gs = GridSearchCV(model, cv=time_series_cv, param_grid=param_grid)
-            gs.fit(X, y)
-            results.append(cv['test_score'].mean())
+            model = auto_arima()
+            train = df[['Date','Units']][:-90].set_index('Date')
+            test = df[['Date','Units']][-90:].set_index('Date')
+            sarima = auto_arima(train, seasonal=True, m=7)
+            predictions = sarima.predict(n_periods=len(test))
+            rmse = root_mean_squared_error(test, predictions)
 
             return test_score, best_model
 
