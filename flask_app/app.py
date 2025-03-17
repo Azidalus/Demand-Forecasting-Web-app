@@ -42,19 +42,22 @@ if st.session_state['predict_btn'] == 1:
         
     # Preprocess data
     data_transformation = DataTransformation()
-    X, y = data_transformation.initiate_data_transformation(data_df)
+    all_data, y = data_transformation.initiate_data_transformation(data_df)
 
     # Train models, choose the best model and save it as .pkl 
-    # Train simple arima model
+    # Train simple ARIMA model
     train_pipeline = TrainPipeline()
     test_score, test_graph, best_model_params = train_pipeline.train(all_data, forecast_horizon=30)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
-    predictions = predict_pipeline.predict(all_data, best_model, forecast_horizon=30)
+    predictions = predict_pipeline.predict(all_data, best_model_params, forecast_horizon=30)
 
     # Output test predictions graph
     #test_graph
+
+    # Output predictions graph
+    #
 
 
 #app = Flask(__name__)
