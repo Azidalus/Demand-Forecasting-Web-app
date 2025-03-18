@@ -61,7 +61,7 @@ if st.session_state['predict_btn'] == 1:
     chart_data['All_data'] = all_data['Units']
     chart_data['Preds'] = None
     chart_data['Preds'][len(all_data): ] = predictions
-    chart_data['Date'] = all_data['Units'][0] date extend
+    chart_data['Date'] = pd.date_range(start=all_data['Units'][0], periods=len(chart_data)) 
 
     st.line_chart(
         chart_data,
