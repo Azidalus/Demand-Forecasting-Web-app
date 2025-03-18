@@ -4,8 +4,11 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import os
+import sys
 #from src.pipeline.train_pipeline import TrainPipeline
-import src
+sys.path.append('/src')
+from src.components.model_train import TrainPipeline
+
 '''
 from src.components.model_train import TrainPipeline
 from src.pipeline.predict_pipeline import PredictPipeline
