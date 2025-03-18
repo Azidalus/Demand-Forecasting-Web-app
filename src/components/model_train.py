@@ -64,13 +64,13 @@ class TrainPipeline:
             train = all_data[['Date','Units']][:-forecast_horizon].set_index('Date')
             test = all_data[['Date','Units']][-forecast_horizon:].set_index('Date')
             sarima = auto_arima(train, seasonal=True, m=7)
-            sarima_params = sarima.
+            #sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))
             test_score = root_mean_squared_error(test, predictions)
 
             # Save test graph
 
-            return test_score, test_graph, sarima_params
+            return test_score #, sarima_params
 
         except Exception as e:
             raise CustomException(e, sys)

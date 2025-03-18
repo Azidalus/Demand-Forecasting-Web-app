@@ -5,16 +5,21 @@ import numpy as np
 import pandas as pd
 import os
 #from src.pipeline.train_pipeline import TrainPipeline
+'''
 from src.components.model_train import TrainPipeline
 from src.pipeline.predict_pipeline import PredictPipeline
 from src.components.data_ingestion import DataIngestion
 from src.features.data_transformation import DataTransformation
+'''
 
 def set_state():
     st.session_state['predict_btn'] = 1
 
 # Flag to indicate that 'Predict' button was pressed and prediction initiated
 st.session_state['predict_btn'] = 0
+
+print(f"Current Working Directory: {os.getcwd()}")
+st.write(f"Current Working Directory: {os.getcwd()}")
 
 # Display starter elements
 st.title('Demand forecasting')
@@ -47,11 +52,11 @@ if st.session_state['predict_btn'] == 1:
     # Train models, choose the best model and save it as .pkl 
     # Train simple ARIMA model
     train_pipeline = TrainPipeline()
-    test_score, test_graph, best_model_params = train_pipeline.train(all_data, forecast_horizon=30)
+    test_score = train_pipeline.train(all_data, forecast_horizon=30)
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
-    predictions = predict_pipeline.predict(all_data, best_model_params, forecast_horizon=30)
+    predictions = predict_pipeline.predict(all_data, forecast_horizon=30)
 
     # Output test predictions graph with error
     #test_graph
