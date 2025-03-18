@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 #from src.pipeline.train_pipeline import TrainPipeline
+import src
 '''
 from src.components.model_train import TrainPipeline
 from src.pipeline.predict_pipeline import PredictPipeline
@@ -17,9 +18,6 @@ def set_state():
 
 # Flag to indicate that 'Predict' button was pressed and prediction initiated
 st.session_state['predict_btn'] = 0
-
-print(f"Current Working Directory: {os.getcwd()}")
-st.write(f"Current Working Directory: {os.getcwd()}")
 
 # Display starter elements
 st.title('Demand forecasting')
