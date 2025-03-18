@@ -7,6 +7,11 @@ from pmdarima import auto_arima
 from sklearn.model_selection import GridSearchCV, cross_validate, TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error
 from dataclasses import dataclass
+sys.path.append('./src')
+sys.path.append('/src')
+sys.path.append('/src/')
+sys.path.append('./src/')
+from src.components.model_train import TrainPipeline
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object, evaluate_models

@@ -2,7 +2,7 @@ import sys
 import pandas as pd
 from src.exception import CustomException
 from src.components.data_ingestion import DataIngestion
-from src.components.data_transformation import DataTransformation
+from src.features.data_transformation import DataTransformation
 from src.utils import save_object
 
 class TrainPipeline:
