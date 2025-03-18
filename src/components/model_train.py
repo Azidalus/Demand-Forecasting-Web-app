@@ -9,14 +9,18 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_s
 from dataclasses import dataclass
 #sys.path.append('./src')
 
+print(sys.path)
+print(f"Current Working Directory: {os.getcwd()}")
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "..", "src")))
 #sys.path.append('C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
 #sys.path.append('/src')
 #sys.path.append('./src/')
 #from src.components.model_train import TrainPipeline
+'''
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object, evaluate_models
+'''
 
 @dataclass
 class ModelTrainerConfig:
