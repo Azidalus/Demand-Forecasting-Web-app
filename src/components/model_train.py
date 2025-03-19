@@ -13,8 +13,8 @@ print(sys.path)
 print(f"Current Working Directory: {os.getcwd()}")
 home_dir = os.environ['HOMEPATH']
 
+sys.path.insert(0, 'C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
 for p in sys.path: print(p)
-#sys.path.insert(0, 'C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
 #from src.logger import logging
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "..", "src")))
 #sys.path.append('C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
