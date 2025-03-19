@@ -18,10 +18,10 @@ print(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "..", "Deman
 print('2')
 print(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "src")))
 #sys.path.append('C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname('exception.py'), "..", "src")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname('exception.py'), "src")))
 #sys.path.insert(0, 'C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
-#for p in sys.path: print(p)
-#import src
+for p in sys.path: print(p)
+import src
 #from src.logger import logging
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "..", "src")))
 #sys.path.append('C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
