@@ -7,16 +7,7 @@ from pmdarima import auto_arima
 from sklearn.model_selection import GridSearchCV, cross_validate, TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error
 from dataclasses import dataclass
-#sys.path.append('./src')
 
-print(sys.path)
-print(f"Current Working Directory: {os.getcwd()}")
-home_dir = os.environ['HOMEPATH']
-
-print('1')
-print(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "..", "Demand-Forecasting-Web-app/src")))
-print('2')
-print(os.path.abspath(os.path.join(os.path.dirname('exception.py'), "src")))
 #sys.path.append('C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname('exception.py'), "src")))
 #sys.path.insert(0, 'C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
