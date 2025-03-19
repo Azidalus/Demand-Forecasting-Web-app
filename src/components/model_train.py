@@ -9,8 +9,9 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_s
 from dataclasses import dataclass
 
 #sys.path.append('C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname('exception.py'), "src")))
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname('exception.py'), "src")))
 #sys.path.insert(0, 'C:/Users/Vector/Documents/GitHub/Demand-Forecasting-Web-app/src/')
+sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app\\src')
 for p in sys.path: print(p)
 import src
 #from src.logger import logging
