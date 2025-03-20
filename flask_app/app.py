@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 import sys
+import plotly as px
 
 sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app')
 from src.components.model_train import TrainPipeline
@@ -14,7 +15,7 @@ from src.features.data_transformation import DataTransformation
 
 
 def set_state():
-    st.session_state['predict_btn'] = 1
+    st.session_state['predict_btn'] = 0
 
 # Flag to indicate that 'Predict' button was pressed and prediction initiated
 st.session_state['predict_btn'] = 0
@@ -75,6 +76,7 @@ if st.session_state['predict_btn'] == 1:
     chart_data['Preds'][len(all_data): ] = predictions
     progress_bar.progress(90, text = 'Visualizing results...')
 
+    '''
     st.line_chart(
         chart_data,
         x="Date",
@@ -82,6 +84,13 @@ if st.session_state['predict_btn'] == 1:
         y=["All_data"],
         #color=["#FF0000", "#0000FF"],  
     )
+    '''
+
+    st.plotly_chart(px.line(chart_data,
+                            x='Date',
+                            y=['All_data', 'Preds'],
+                            use_container_wisth=True))
+
     progress_bar.progress(100, text = 'Done')
 
 
