@@ -33,7 +33,7 @@ else:
     pass
 
 if st.session_state['predict_btn'] == 1:
-    progress_bar = st.progress(0)
+    progress_bar = st.progress(0, 'Preprocessing data...')
     #for percent_complete in range(100):
     #   time.sleep(0.01)
     #   progress_bar.progress(percent_complete + 1, text=progress_text)
@@ -42,38 +42,47 @@ if st.session_state['predict_btn'] == 1:
     data_ingestion = DataIngestion()
     data_df = data_ingestion.initiate_data_ingestion(CSV_obj=uploaded_CSV_obj)
     #train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=uploaded_CSV)
+    progress_bar.progress(10, text = 'Preprocessing data...')
         
     # Preprocess data
     data_transformation = DataTransformation()
+    progress_bar.progress(20, text = 'Preprocessing data...')
     all_data, y = data_transformation.initiate_data_transformation(data_df)
+    progress_bar.progress(40, text = 'Training models...')
 
     # Train models, choose the best model and save it as .pkl 
     # Train simple ARIMA model
     train_pipeline = TrainPipeline()
+    progress_bar.progress(50, text = 'Training models...')
     test_score = train_pipeline.train(all_data, forecast_horizon=30)
+    progress_bar.progress(60, text = 'Making predictions...')
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
+    progress_bar.progress(70, text = 'Making predictions...')
     predictions = predict_pipeline.predict(all_data, forecast_horizon=30)
+    progress_bar.progress(80, text = 'Visualizing results...')
 
     # Output test predictions graph with error
     #test_graph
 
     # Output predictions graph
-    chart_data = pd.DataFrame(columns=["Date", "All_data", "Preds"])
     chart_data_len = len(all_data) + len(predictions) 
-    chart_data['All_data'] = all_data['Units']
+    chart_data = pd.DataFrame(index=range(chart_data_len), columns=["Date", "All_data", "Preds"])
+    # df = pd.DataFrame({"col1":["value"]*integer_number_of_rows,"col2":["value"]*integer_number_of_rows})
     chart_data['Date'] = pd.date_range(start=all_data['Units'][0], periods=chart_data_len)
-    chart_data['Preds'] = None
+    chart_data['All_data'][:len(all_data)] = all_data['Units']
     chart_data['Preds'][len(all_data): ] = predictions
-    
+    progress_bar.progress(90, text = 'Visualizing results...')
 
     st.line_chart(
         chart_data,
         x="Date",
-        y=["All_data", "Preds"],
-        color=["#FF0000", "#0000FF"],  
+        #y=["All_data", "Preds"],
+        y=["All_data"],
+        #color=["#FF0000", "#0000FF"],  
     )
+    progress_bar.progress(100, text = 'Done')
 
 
 #app = Flask(__name__)
