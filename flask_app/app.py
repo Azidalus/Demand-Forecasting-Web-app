@@ -6,6 +6,7 @@ import pandas as pd
 import os
 import sys
 import plotly.express as px
+import time
 
 sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app')
 from src.components.model_train import TrainPipeline
@@ -35,6 +36,7 @@ else:
 
 if st.session_state['predict_btn'] == 1:
     progress_bar = st.progress(0, 'Preprocessing data...')
+    time.sleep(1)
     #for percent_complete in range(100):
     #   time.sleep(0.01)
     #   progress_bar.progress(percent_complete + 1, text=progress_text)
@@ -44,10 +46,12 @@ if st.session_state['predict_btn'] == 1:
     data_df = data_ingestion.initiate_data_ingestion(CSV_obj=uploaded_CSV_obj)
     #train_path, test_path = data_ingestion.initiate_data_ingestion(data_in_csv=uploaded_CSV)
     progress_bar.progress(10, text = 'Preprocessing data...')
+    time.sleep(2)
         
     # Preprocess data
     data_transformation = DataTransformation()
     progress_bar.progress(20, text = 'Preprocessing data...')
+    time.sleep(2)
     all_data, y = data_transformation.initiate_data_transformation(data_df)
     progress_bar.progress(40, text = 'Training models...')
 
@@ -89,7 +93,7 @@ if st.session_state['predict_btn'] == 1:
     st.plotly_chart(px.line(chart_data,
                             x='Date',
                             y=['All_data', 'Preds'],
-                            use_container_wisth=True))
+                            use_container_width=True))
 
     progress_bar.progress(100, text = 'Done')
 
