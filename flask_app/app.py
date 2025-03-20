@@ -74,21 +74,10 @@ if st.session_state['predict_btn'] == 1:
     # Output predictions graph
     chart_data_len = len(all_data) + len(predictions) 
     chart_data = pd.DataFrame(index=range(chart_data_len), columns=["Date", "All_data", "Preds"])
-    # df = pd.DataFrame({"col1":["value"]*integer_number_of_rows,"col2":["value"]*integer_number_of_rows})
     chart_data['Date'] = pd.date_range(start=all_data['Units'][0], periods=chart_data_len)
     chart_data['All_data'][:len(all_data)] = all_data['Units']
     chart_data['Preds'][len(all_data): ] = predictions
     progress_bar.progress(90, text = 'Visualizing results...')
-
-    '''
-    st.line_chart(
-        chart_data,
-        x="Date",
-        #y=["All_data", "Preds"],
-        y=["All_data"],
-        #color=["#FF0000", "#0000FF"],  
-    )
-    '''
 
     st.plotly_chart(px.line(chart_data,
                             x='Date',
