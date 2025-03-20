@@ -103,6 +103,7 @@ class DataTransformation:
             '''
             # Do later
             #df = preprocess()
+            df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', dayfirst=True)
             #logging.info('Data preprocessing completed')
 
             # Create time features if needed
@@ -111,7 +112,6 @@ class DataTransformation:
                 #logging.info('Features successfully created')
 
             #how to scale???
-        
             X = df.drop('Sales', axis='columns').set_index('Date')
             y = df['Units']
             #logging.info('Data successfully split')
@@ -120,3 +120,9 @@ class DataTransformation:
         
         except Exception as e:
             raise CustomException(e, sys)
+        
+'''
+data_df = pd.read_csv
+data_transformation = DataTransformation()
+all_data, y = data_transformation.initiate_data_transformation(data_df)
+'''

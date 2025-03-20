@@ -53,6 +53,7 @@ if st.session_state['predict_btn'] == 1:
     progress_bar.progress(20, text = 'Preprocessing data...')
     time.sleep(2)
     all_data, y = data_transformation.initiate_data_transformation(data_df)
+    st.write(all_data.head())
     progress_bar.progress(40, text = 'Training models...')
 
     # Train models, choose the best model and save it as .pkl 
@@ -74,7 +75,7 @@ if st.session_state['predict_btn'] == 1:
     # Output predictions graph
     chart_data_len = len(all_data) + len(predictions) 
     chart_data = pd.DataFrame(index=range(chart_data_len), columns=["Date", "All_data", "Preds"])
-    chart_data['Date'] = pd.date_range(start=all_data['Units'][0], periods=chart_data_len)
+    chart_data['Date'] = pd.date_range(start=all_data.index[0], periods=chart_data_len)
     chart_data['All_data'][:len(all_data)] = all_data['Units']
     chart_data['Preds'][len(all_data): ] = predictions
     progress_bar.progress(90, text = 'Visualizing results...')
