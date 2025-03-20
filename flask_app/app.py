@@ -78,6 +78,8 @@ if st.session_state['predict_btn'] == 1:
     chart_data['All_data'][:len(all_data)] = all_data['Units']
     chart_data['Preds'][len(all_data): ] = predictions
     progress_bar.progress(90, text = 'Visualizing results...')
+    print(chart_data.head())
+    st.write(chart_data.head())
 
     st.plotly_chart(px.line(chart_data,
                             x='Date',
