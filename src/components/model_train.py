@@ -62,8 +62,10 @@ class TrainPipeline:
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
             '''
-            train = all_data[['Date','Units']][:-forecast_horizon] #.set_index('Date')
-            test = all_data[['Date','Units']][-forecast_horizon:] #.set_index('Date')
+            #train = all_data[['Date','Units']][:-forecast_horizon] #.set_index('Date')
+            #test = all_data[['Date','Units']][-forecast_horizon:] #.set_index('Date')
+            train = all_data[:-forecast_horizon]
+            test = all_data[-forecast_horizon:]
             sarima = auto_arima(train, seasonal=True, m=7)
             #sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))

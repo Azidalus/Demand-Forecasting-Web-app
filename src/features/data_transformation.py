@@ -22,11 +22,11 @@ class DataTransformation:
 
     def create_features(self, df):
         try:
-            ['week_of_year'] = df['date'].dt.week
-            ['month'] = df['date'].dt.month
-            ['day_of_year'] = df['date'].dt.dayofyear
-            ['quarter'] = df['date'].dt.quarter
-            ['day_of_month'] = df['date'].dt.quarter
+            df['week_of_year'] = df['date'].dt.week
+            df['month'] = df['date'].dt.month
+            df['day_of_year'] = df['date'].dt.dayofyear
+            df['quarter'] = df['date'].dt.quarter
+            df['day_of_month'] = df['date'].dt.quarter
             return df
 
         except Exception as e:
@@ -112,7 +112,7 @@ class DataTransformation:
 
             #how to scale???
         
-            X = df.drop(['Sales']).set_index('Date')
+            X = df.drop('Sales', axis='columns').set_index('Date')
             y = df['Units']
             #logging.info('Data successfully split')
 
