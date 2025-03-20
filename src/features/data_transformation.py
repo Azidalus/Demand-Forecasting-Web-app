@@ -9,12 +9,12 @@ from sklearn.preprocessing import StandardScaler
 from dataclasses import dataclass
 
 from src.exception import CustomException
-from src.logger import logging
+#from src.logger import logging
 from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path = os.path.join('artifacts', 'preprocessor.pkl')
+    preprocessor_obj_file_path = os.path.join('data', 'preprocessor.pkl')
 
 class DataTransformation:
     def __init__(self):
@@ -42,9 +42,7 @@ class DataTransformation:
             ]    
         )
         # Scale data if needed
-
-
-        return preprocessing_obj
+        return 0 #preprocessing_obj
         
     def initiate_data_transformation(self, df, scale=False, create_time_ftrs=False):
         try:
@@ -110,13 +108,13 @@ class DataTransformation:
             # Create time features if needed
             if create_time_ftrs:
                 df = self.create_features(df, scale=scale)
-                logging.info('Features successfully created')
+                #logging.info('Features successfully created')
 
             #how to scale???
         
             X = df.drop(['Sales']).set_index('Date')
-            y = df['Sales']
-            logging.info('Data successfully split')
+            y = df['Units']
+            #logging.info('Data successfully split')
 
             return(X, y)
         

@@ -5,16 +5,13 @@ import numpy as np
 import pandas as pd
 import os
 import sys
-#from src.pipeline.train_pipeline import TrainPipeline
-sys.path.append('/src')
-from src.components.model_train import TrainPipeline
 
-'''
+sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app')
 from src.components.model_train import TrainPipeline
 from src.pipeline.predict_pipeline import PredictPipeline
 from src.components.data_ingestion import DataIngestion
 from src.features.data_transformation import DataTransformation
-'''
+
 
 def set_state():
     st.session_state['predict_btn'] = 1

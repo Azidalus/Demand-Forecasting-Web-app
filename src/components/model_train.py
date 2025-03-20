@@ -9,11 +9,9 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_s
 from dataclasses import dataclass
 
 sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app')
-'''
 from src.exception import CustomException
-from src.logger import logging
-from src.utils import save_object, evaluate_models
-'''
+#from src.logger import logging
+#from src.utils import save_object, evaluate_models
 
 @dataclass
 class ModelTrainerConfig:
@@ -64,9 +62,8 @@ class TrainPipeline:
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
             '''
-            model = auto_arima()
-            train = all_data[['Date','Units']][:-forecast_horizon].set_index('Date')
-            test = all_data[['Date','Units']][-forecast_horizon:].set_index('Date')
+            train = all_data[['Date','Units']][:-forecast_horizon] #.set_index('Date')
+            test = all_data[['Date','Units']][-forecast_horizon:] #.set_index('Date')
             sarima = auto_arima(train, seasonal=True, m=7)
             #sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))

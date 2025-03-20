@@ -1,12 +1,13 @@
 import os
 import sys
-from src.exception import CustomException
-from src.logger import logging
 import pandas as pd 
 from sklearn.model_selection import train_test_split, TimeSeriesSplit
 from dataclasses import dataclass
+
 from src.features.data_transformation import DataTransformation
-from src.components.model_train import ModelTrainer
+from src.components.model_train import TrainPipeline
+from src.exception import CustomException
+#from src.logger import logging
 
 # Config with paths to raw, train and test data files
 @dataclass
@@ -20,7 +21,7 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self, CSV_obj):
-        logging.info('Entered the data ingestion component')
+        #logging.info('Entered the data ingestion component')
         try:
             '''
             #df = pd.read_csv('data\file.csv')

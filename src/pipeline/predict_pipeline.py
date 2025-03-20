@@ -1,21 +1,27 @@
 import sys
 import pandas as pd
+from pmdarima import auto_arima
 from src.exception import CustomException
 from src.utils import load_object
+
 
 class PredictPipeline:
     def __init__(self):
         pass
 
-    def predict(self, data):
+    def predict(self, data, forecast_horizon):
         try:
+            '''
             model_path = 'artifacts\model.pkl'
             preprocessor_path = 'artifacts\preprocessor.pkl'
             model = load_object(file_path=model_path)
             preprocessor = load_object(file_path=preprocessor_path)
             data_preprocessed = preprocessor.transform(data)
             predictions = model.predict(data_preprocessed)
-           
+            '''
+            model = auto_arima(data, seasonal=True, m=7)
+            #sarima_params = sarima.
+            predictions = model.predict(n_periods=forecast_horizon)
             return predictions
         
         except Exception as e:
