@@ -92,8 +92,8 @@ if st.session_state['predict_btn'] == 1:
 
     st.plotly_chart(px.line(chart_data,
                             x='Date',
-                            y=['All_data', 'Preds'],
-                            use_container_width=True))
+                            y=['All_data', 'Preds']),
+                            use_container_width=True)
 
     progress_bar.progress(100, text = 'Done')
 
