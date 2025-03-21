@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from dataclasses import dataclass
 
 from src.exception import CustomException
-#from src.logger import logging
+from src.logger import logging
 from src.utils import save_object
 
 @dataclass
@@ -101,6 +101,7 @@ class DataTransformation:
                 #self.data_transformation_config.preprocessor_obj_file_path,
             )
             '''
+            logging.info('Entered data transformation component')
             # Do later
             #df = preprocess()
             df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', dayfirst=True)
@@ -108,13 +109,14 @@ class DataTransformation:
 
             # Create time features if needed
             if create_time_ftrs:
+                logging.info('Creating features')
                 df = self.create_features(df, scale=scale)
-                #logging.info('Features successfully created')
 
             #how to scale???
+            logging.info('Splitting data')
             X = df.drop('Sales', axis='columns').set_index('Date')
             y = df['Units']
-            #logging.info('Data successfully split')
+            logging.info('Data successfully transformed to X and y')
 
             return(X, y)
         
