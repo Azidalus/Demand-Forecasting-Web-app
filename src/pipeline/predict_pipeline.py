@@ -3,6 +3,7 @@ import pandas as pd
 from pmdarima import auto_arima
 from src.exception import CustomException
 from src.utils import load_object
+from src.logger import logging
 
 
 class PredictPipeline:
@@ -19,9 +20,12 @@ class PredictPipeline:
             data_preprocessed = preprocessor.transform(data)
             predictions = model.predict(data_preprocessed)
             '''
+            logging.info('Entered predictor component')
             model = auto_arima(data, seasonal=True, m=7)
             #sarima_params = sarima.
             predictions = model.predict(n_periods=forecast_horizon)
+
+            logging.info('Prediction made successfully')
             return predictions
         
         except Exception as e:
