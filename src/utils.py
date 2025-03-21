@@ -38,9 +38,12 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
                 model.set_params(**gs.best_params_)
 
                 # Train model
-                model.fit(X_train, y_train)
+                model.fit(X_train, y_trai)
                 y_train_pred = model.predict(X_train)
                 y_test_pred = model.predict(X_test)
+            else:
+                # train arima on full data
+                # get evaluation score from cross val
 
             train_model_score = score(y_train, y_train_pred)
             test_model_score = score(y_test, y_test_pred)
