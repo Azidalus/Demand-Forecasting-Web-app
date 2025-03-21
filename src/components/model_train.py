@@ -10,7 +10,7 @@ from dataclasses import dataclass
 
 sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app')
 from src.exception import CustomException
-#from src.logger import logging
+from src.logger import logging
 #from src.utils import save_object, evaluate_models
 
 @dataclass
@@ -64,15 +64,17 @@ class TrainPipeline:
             '''
             #train = all_data[['Date','Units']][:-forecast_horizon] #.set_index('Date')
             #test = all_data[['Date','Units']][-forecast_horizon:] #.set_index('Date')
+            logging.info('Entered model trainer component')
             train = all_data[:-forecast_horizon]
             test = all_data[-forecast_horizon:]
+            logging.info('Starting to train model')
             sarima = auto_arima(train, seasonal=True, m=7)
             #sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))
             test_score = root_mean_squared_error(test, predictions)
 
             # Save test graph
-
+            logging.info('Model training completed')
             return test_score #, sarima_params
 
         except Exception as e:
