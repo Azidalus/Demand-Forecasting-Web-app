@@ -32,10 +32,6 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
                 model.set_params(**gs.best_params_)
 
                 print("Best CV score: ", np.abs(gs.best_score_))
-                # Perform randomized grid search on train data and find best params
-                gs = RandomizedSearchCV(model, para, cv=3)
-                gs.fit(X_train, y_train)
-                model.set_params(**gs.best_params_)
 
                 # Train model
                 model.fit(X_train, y_trai)
