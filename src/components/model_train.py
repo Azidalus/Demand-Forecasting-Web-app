@@ -21,6 +21,42 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
+    def evaluate_models(X_train, y_train, X_test, y_test, models, param):
+        try:
+            report = {}
+
+            for i in range(len(list(models))):
+                model = list(models.values())[i]
+                para = param[list(models.keys())[i]]
+
+                if models[i] != 'ARIMA':
+                    # Perform cross val grid search on data, find best params, and set them to model
+                    time_series_split = TimeSeriesSplit(test_size=90)
+                    gs = GridSearchCV(model, param_grid, cv=time_series_split, scoring='neg_root_mean_squared_error')
+                    gs.fit(X, y)
+                    model.set_params(**gs.best_params_)
+
+                    print("Best CV score: ", np.abs(gs.best_score_))
+
+                    # Train model
+                    model.fit(X_train, y_trai)
+                    y_train_pred = model.predict(X_train)
+                    y_test_pred = model.predict(X_test)
+                else:
+                    # train arima on full data
+                    # get evaluation score from cross val
+
+                train_model_score = score(y_train, y_train_pred)
+                test_model_score = score(y_test, y_test_pred)
+
+                report[list(models.keys())[i]] = test_model_score
+
+            return report
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
+
     def train(self, all_data, forecast_horizon, preprocessor_path=None):
         try:
             '''
@@ -62,13 +98,14 @@ class TrainPipeline:
             y_pred = best_model.predict(X_test)
             test_score = score(y_test, y_pred)
             '''
-            #train = all_data[['Date','Units']][:-forecast_horizon] #.set_index('Date')
-            #test = all_data[['Date','Units']][-forecast_horizon:] #.set_index('Date')
+            
             logging.info('Entered model trainer component')
             train = all_data[:-forecast_horizon]
             test = all_data[-forecast_horizon:]
+
             logging.info('Starting to train model')
             sarima = auto_arima(train, seasonal=True, m=7)
+            xgboost
             #sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))
             test_score = root_mean_squared_error(test, predictions)
