@@ -69,7 +69,7 @@ class TrainPipeline:
                 best_model = max(report.iteritems(), key=operator.itemgetter(1))[0]
                 best_model_score = max(report.iteritems(), key=operator.itemgetter(1))[1]
 
-            return report, best_model
+            return report, best_model_score, best_model
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -134,7 +134,7 @@ class TrainPipeline:
                       'XGBoost': XGBRegressor()
                      }
 
-            model_report, best_model = self.evaluate_models(all_data, models, param)
+            model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param)
             
             # Get best model score from dict
             best_model_score = max(sorted(model_report.values()))
@@ -146,11 +146,11 @@ class TrainPipeline:
             best_model = models[best_model_name]
 
             if best_model_score < 0.6:
-                raise CustomException("Best model's score is < 0.6
+                raise CustomException("Best model's score is < 0.6")
 
             # Save test graph
             logging.info('Model training completed')
-            return test_score #, sarima_params
+            return test_score, best_model
 
         except Exception as e:
             raise CustomException(e, sys)
