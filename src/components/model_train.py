@@ -41,14 +41,16 @@ class TrainPipeline:
                     print("Best CV score: ", np.abs(gs.best_score_))
 
                     # Train model
-                    model.fit(X_train, y_trai)
+                    model.fit(X_train, y_train)
                     y_train_pred = model.predict(X_train)
                     y_test_pred = model.predict(X_test)
                 else:
-                    # train arima on full data
-                    # get evaluation score from cross val
+                    # Train arima on full data
                     best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
+                    # Do cross-val on full data and get evaluation score
+                    for train, test in time_series_split(all_data):
+
 
                 train_model_score = score(y_train, y_train_pred)
                 test_model_score = score(y_test, y_test_pred)
