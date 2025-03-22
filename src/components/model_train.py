@@ -1,6 +1,7 @@
 import os
 import sys
 import numpy as np
+import operator
 
 #from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
@@ -22,19 +23,26 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def evaluate_models(all_data, X_train, y_train, models, param):
+    def evaluate_models(all_data, models, param):
         try:
             report = {}
 
             # Iterate over all models
-            for i in range(len(list(models))):
-                model = list(models.values())[i]
-                para = param[list(models.keys())[i]]
+            for model_name, model in models:
+                para = param[model_name]
                 time_series_split = TimeSeriesSplit(test_size=90)
 
-                if  models == 'naive':
+                if model_name == 'naive':
+                    naive_errors = []
+                    # Do cross-val on full data and get evaluation score
+                    for train_idx, test_idx in time_series_split(all_data['Units']):
+                        train, test = all_data['Units'].iloc[train_idx], all_data['Units'].iloc[test_idx]
+                        naive_preds = np.full_like(test, fill_value=train.iloc[-1])
+                        naive_MSE = mean_squared_error(test, naive_preds)
+                        naive_errors.append(naive_MSE)
+                    model_score = np.mean(naive_errors)
 
-                elif models[i] == 'ARIMA':
+                elif model_name == 'ARIMA':
                     # Train auto_arima on full data to get best params
                     best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
@@ -47,6 +55,7 @@ class TrainPipeline:
                         arima_MSE = mean_squared_error(test, arima_preds)
                         arima_errors.append(arima_MSE)
                     model_score = np.mean(arima_errors)
+
                 else:
                     # Perform cross-val grid search on data, find best params, and set them to model
                     gs = GridSearchCV(model, param_grid, cv=time_series_split, scoring='neg_root_mean_squared_error')
@@ -54,10 +63,13 @@ class TrainPipeline:
                     model.set_params(**gs.best_params_)
                     model_score = np.abs(gs.best_score_)
                     
-                # Add model score to final report
-                report[list(models.keys())[i]] = model_score
+                # Add model and model score to final report
+                report[model_name] = (model, model_score)
+                # Get best model and best score
+                best_model = max(report.iteritems(), key=operator.itemgetter(1))[0]
+                best_model_score = max(report.iteritems(), key=operator.itemgetter(1))[1]
 
-            return report
+            return report, best_model
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -122,7 +134,7 @@ class TrainPipeline:
                       'XGBoost': XGBRegressor()
                      }
 
-            model_report:dict = self.evaluate_models(all_data, X_train, y_train, models)
+            model_report, best_model = self.evaluate_models(all_data, models, param)
             
             # Get best model score from dict
             best_model_score = max(sorted(model_report.values()))
