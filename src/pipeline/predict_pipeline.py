@@ -10,7 +10,7 @@ class PredictPipeline:
     def __init__(self):
         pass
 
-    def predict(self, data, forecast_horizon):
+    def predict(self, model, data, forecast_horizon):
         try:
             '''
             model_path = 'artifacts\model.pkl'
@@ -21,8 +21,7 @@ class PredictPipeline:
             predictions = model.predict(data_preprocessed)
             '''
             logging.info('Entered predictor component')
-            model = auto_arima(data, seasonal=True, m=7)
-            #sarima_params = sarima.
+            #model = auto_arima(data, seasonal=True, m=7)
             predictions = model.predict(n_periods=forecast_horizon)
 
             logging.info('Prediction made successfully')
