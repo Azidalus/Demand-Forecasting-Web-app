@@ -4,7 +4,7 @@ import numpy as np
 
 #from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
-from pmdarima import auto_arima
+from pmdarima import auto_arima, ARIMA
 from sklearn.model_selection import GridSearchCV, cross_validate, TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error
 from dataclasses import dataclass
@@ -45,11 +45,13 @@ class TrainPipeline:
                     y_train_pred = model.predict(X_train)
                     y_test_pred = model.predict(X_test)
                 else:
-                    # Train arima on full data
+                    # Train auto_arima on full data to get best params
                     best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
-                    # Do cross-val on full data and get evaluation score
-                    for train, test in time_series_split(all_data):
+                    # Do cross-val on full data with these params and get evaluation score
+                    for train_idx, test_idx in time_series_split(all_data):
+                        train, test = all_data.iloc[train_idx], all_data.iloc[test_idx]
+                        arima_model = ARIMA(order=arima_params).fit(train)
 
 
                 train_model_score = score(y_train, y_train_pred)
