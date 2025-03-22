@@ -30,25 +30,19 @@ class TrainPipeline:
             for i in range(len(list(models))):
                 model = list(models.values())[i]
                 para = param[list(models.keys())[i]]
+                time_series_split = TimeSeriesSplit(test_size=90)
 
                 if models[i] != 'ARIMA':
                     # Perform cross val grid search on data, find best params, and set them to model
-                    time_series_split = TimeSeriesSplit(test_size=90)
                     gs = GridSearchCV(model, param_grid, cv=time_series_split, scoring='neg_root_mean_squared_error')
                     gs.fit(X, y)
                     model.set_params(**gs.best_params_)
-
-                    print("Best CV score: ", np.abs(gs.best_score_))
-
-                    # Train model
-                    model.fit(X_train, y_train)
-                    y_train_pred = model.predict(X_train)
-                    y_test_pred = model.predict(X_test)
+                    model_score = np.abs(gs.best_score_)
                 else:
-                    arima_errors = []
                     # Train auto_arima on full data to get best params
                     best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
+                    arima_errors = []
                     # Do cross-val on full data with these params and get evaluation score
                     for train_idx, test_idx in time_series_split(all_data):
                         train, test = all_data.iloc[train_idx], all_data.iloc[test_idx]
@@ -56,12 +50,9 @@ class TrainPipeline:
                         arima_preds = arima_model.predict(n_periods=len(test))
                         arima_MSE = mean_squared_error(test, arima_preds)
                         arima_errors.append(arima_MSE)
-                    arima_score = np.mean(arima_errors)
-
-                train_model_score = score(y_train, y_train_pred)
-                test_model_score = score(y_test, y_test_pred)
-
-                report[list(models.keys())[i]] = test_model_score
+                    model_score = np.mean(arima_errors)
+                # Add model score to final report
+                report[list(models.keys())[i]] = model_score
 
             return report
 
