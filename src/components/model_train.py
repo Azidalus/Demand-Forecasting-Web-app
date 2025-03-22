@@ -1,6 +1,7 @@
 import os
 import sys
-#from data_ingestion.py import
+import numpy as np
+
 #from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from xgboost import XGBRegressor
 from pmdarima import auto_arima
@@ -25,6 +26,7 @@ class TrainPipeline:
         try:
             report = {}
 
+            # Iterate over all models
             for i in range(len(list(models))):
                 model = list(models.values())[i]
                 para = param[list(models.keys())[i]]
@@ -45,6 +47,8 @@ class TrainPipeline:
                 else:
                     # train arima on full data
                     # get evaluation score from cross val
+                    best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
+                    arima_params = best_arima.order
 
                 train_model_score = score(y_train, y_train_pred)
                 test_model_score = score(y_test, y_test_pred)
