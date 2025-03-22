@@ -22,7 +22,7 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def evaluate_models(X_train, y_train, X_test, y_test, models, param):
+    def evaluate_models(all_data, X_train, y_train, X_test, y_test, models, param):
         try:
             report = {}
 
@@ -117,10 +117,30 @@ class TrainPipeline:
 
             logging.info('Starting to train model')
             sarima = auto_arima(train, seasonal=True, m=7)
-            xgboost
+            
             #sarima_params = sarima.
             predictions = sarima.predict(n_periods=len(test))
             test_score = root_mean_squared_error(test, predictions)
+
+            models = {
+                      'naive': ,
+                      'ARIMA': LinearRegression(),
+                      'XGBoost': XGBRegressor()
+                     }
+
+            model_report:dict = self.evaluate_models(all_data, X_train, y_train, X_test, y_test, models)
+            
+            # Get best model score from dict
+            best_model_score = max(sorted(model_report.values()))
+
+            # Get best model name from dict
+            best_model_name = list(model_report.keys())[
+                list(model_report.values()).index(best_model_score)
+            ]
+            best_model = models[best_model_name]
+
+            if best_model_score < 0.6:
+                raise CustomException("Best model's score is < 0.6
 
             # Save test graph
             logging.info('Model training completed')
