@@ -22,7 +22,7 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def evaluate_models(all_data, X_train, y_train, X_test, y_test, models, param):
+    def evaluate_models(all_data, X_train, y_train, models, param):
         try:
             report = {}
 
@@ -32,13 +32,9 @@ class TrainPipeline:
                 para = param[list(models.keys())[i]]
                 time_series_split = TimeSeriesSplit(test_size=90)
 
-                if models[i] != 'ARIMA':
-                    # Perform cross val grid search on data, find best params, and set them to model
-                    gs = GridSearchCV(model, param_grid, cv=time_series_split, scoring='neg_root_mean_squared_error')
-                    gs.fit(X, y)
-                    model.set_params(**gs.best_params_)
-                    model_score = np.abs(gs.best_score_)
-                else:
+                if  models == 'naive':
+
+                elif models[i] == 'ARIMA':
                     # Train auto_arima on full data to get best params
                     best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
@@ -51,6 +47,13 @@ class TrainPipeline:
                         arima_MSE = mean_squared_error(test, arima_preds)
                         arima_errors.append(arima_MSE)
                     model_score = np.mean(arima_errors)
+                else:
+                    # Perform cross-val grid search on data, find best params, and set them to model
+                    gs = GridSearchCV(model, param_grid, cv=time_series_split, scoring='neg_root_mean_squared_error')
+                    gs.fit(X, y)
+                    model.set_params(**gs.best_params_)
+                    model_score = np.abs(gs.best_score_)
+                    
                 # Add model score to final report
                 report[list(models.keys())[i]] = model_score
 
@@ -114,12 +117,12 @@ class TrainPipeline:
             test_score = root_mean_squared_error(test, predictions)
 
             models = {
-                      'naive': ,
-                      'ARIMA': LinearRegression(),
+                      'naive': None,
+                      'ARIMA': None,
                       'XGBoost': XGBRegressor()
                      }
 
-            model_report:dict = self.evaluate_models(all_data, X_train, y_train, X_test, y_test, models)
+            model_report:dict = self.evaluate_models(all_data, X_train, y_train, models)
             
             # Get best model score from dict
             best_model_score = max(sorted(model_report.values()))
