@@ -30,12 +30,13 @@ class TrainPipeline:
             # Iterate over all models
             for model_name, model in models:
                 para = param[model_name]
-                time_series_split = TimeSeriesSplit(test_size=90)
+                ts_split = TimeSeriesSplit(n_splits=8, test_size=90)
 
                 if model_name == 'naive':
+                    X = all_data['Units']
                     naive_errors = []
                     # Do cross-val on full data and get evaluation score
-                    for train_idx, test_idx in time_series_split(all_data['Units']):
+                    for train_idx, test_idx in ts_split.split(all_data['Units']):
                         train, test = all_data['Units'].iloc[train_idx], all_data['Units'].iloc[test_idx]
                         naive_preds = np.full_like(test, fill_value=train.iloc[-1])
                         naive_MSE = mean_squared_error(test, naive_preds)
@@ -44,12 +45,13 @@ class TrainPipeline:
 
                 elif model_name == 'ARIMA':
                     # Train auto_arima on full data to get best params
-                    best_arima = auto_arima(all_data, seasonal=True, suppress_warnings=True)
+                    X = all_data[['Date','Units']].set_index('Date')
+                    best_arima = auto_arima(X, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
                     arima_errors = []
                     # Do cross-val on full data with these params and get evaluation score
-                    for train_idx, test_idx in time_series_split(all_data):
-                        train, test = all_data.iloc[train_idx], all_data.iloc[test_idx]
+                    for train_idx, test_idx in ts_split.split(X):
+                        train, test = X.iloc[train_idx], X.iloc[test_idx]
                         arima_model = ARIMA(order=arima_params).fit(train)
                         arima_preds = arima_model.predict(n_periods=len(test))
                         arima_MSE = mean_squared_error(test, arima_preds)
