@@ -29,7 +29,7 @@ class TrainPipeline:
 
             # Iterate over all models
             for model_name, model in models:
-                para = param[model_name]
+                para = param_grid[model_name]
                 ts_split = TimeSeriesSplit(n_splits=8, test_size=90)
 
                 if model_name == 'naive':
@@ -42,6 +42,7 @@ class TrainPipeline:
                         naive_MSE = mean_squared_error(test, naive_preds)
                         naive_errors.append(naive_MSE)
                     model_score = np.mean(naive_errors)
+                    model = 
 
                 elif model_name == 'ARIMA':
                     # Train auto_arima on full data to get best params
@@ -57,6 +58,7 @@ class TrainPipeline:
                         arima_MSE = mean_squared_error(test, arima_preds)
                         arima_errors.append(arima_MSE)
                     model_score = np.mean(arima_errors)
+                    model = 
 
                 else:
                     # Perform cross-val grid search on data, find best params, and set them to model
@@ -134,7 +136,7 @@ class TrainPipeline:
             models = {
                       'naive': None,
                       'ARIMA': None,
-                      'XGBoost': XGBRegressor()
+                      'XGBoost': XGBRegressor(random_state=1)
                      }
             
             param_grid = {
