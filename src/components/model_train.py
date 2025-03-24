@@ -127,7 +127,7 @@ class TrainPipeline:
             #train = all_data[:-forecast_horizon]
             #test = all_data[-forecast_horizon:]
 
-            logging.info('Starting to train model')
+            logging.info('Starting to train models')
             #sarima = auto_arima(train, seasonal=True, m=7)
             #predictions = sarima.predict(n_periods=len(test))
             #test_score = root_mean_squared_error(test, predictions)
@@ -144,23 +144,16 @@ class TrainPipeline:
                           'sub_sample': [0, 0.4, 0.8]
                          }
 
+            # Get report, best model score and best model from the report
             model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
+            logging.info('Best model found')
             
-            # Get best model score from dict
-            best_model_score = max(sorted(model_report.values()))
-
-            # Get best model name from dict
-            best_model_name = list(model_report.keys())[
-                list(model_report.values()).index(best_model_score)
-            ]
-            best_model = models[best_model_name]
-
             if best_model_score < 0.6:
                 raise CustomException("Best model's score is < 0.6")
 
             # Save test graph
             logging.info('Model training completed')
-            return test_score, best_model
+            return best_model_score, best_model
 
         except Exception as e:
             raise CustomException(e, sys)
