@@ -42,7 +42,7 @@ class TrainPipeline:
                         naive_MSE = mean_squared_error(test, naive_preds)
                         naive_errors.append(naive_MSE)
                     model_score = np.mean(naive_errors)
-                    model = 
+                    model = None
 
                 elif model_name == 'ARIMA':
                     # Train auto_arima on full data to get best params
@@ -58,7 +58,7 @@ class TrainPipeline:
                         arima_MSE = mean_squared_error(test, arima_preds)
                         arima_errors.append(arima_MSE)
                     model_score = np.mean(arima_errors)
-                    model = 
+                    model = best_arima
 
                 else:
                     # Perform cross-val grid search on data, find best params, and set them to model
