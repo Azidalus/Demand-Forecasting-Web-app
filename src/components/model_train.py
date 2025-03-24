@@ -62,7 +62,8 @@ class TrainPipeline:
 
                 else:
                     # Perform cross-val grid search on data, find best params, and set them to model
-                    X = all_data[['Units']]
+                    X = all_data.drop(['Units','Date'], axis=1)
+                    y = all_data['Units']
                     gs = GridSearchCV(model, param_grid, cv=ts_split, scoring='neg_root_mean_squared_error')
                     gs.fit(X, y)
                     model.set_params(**gs.best_params_)
