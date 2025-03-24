@@ -23,7 +23,7 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def evaluate_models(all_data, models, param):
+    def evaluate_models(all_data, models, param_grid):
         try:
             report = {}
 
@@ -60,7 +60,8 @@ class TrainPipeline:
 
                 else:
                     # Perform cross-val grid search on data, find best params, and set them to model
-                    gs = GridSearchCV(model, param_grid, cv=time_series_split, scoring='neg_root_mean_squared_error')
+                    X = all_data[['Units']]
+                    gs = GridSearchCV(model, param_grid, cv=ts_split, scoring='neg_root_mean_squared_error')
                     gs.fit(X, y)
                     model.set_params(**gs.best_params_)
                     model_score = np.abs(gs.best_score_)
@@ -135,6 +136,12 @@ class TrainPipeline:
                       'ARIMA': None,
                       'XGBoost': XGBRegressor()
                      }
+            
+            param = {
+                     'learning_rate': [0.01, 0.1],
+                     'n_estimators': [100, 300, 500],
+                     'sub_sample': [0, 0.4, 0.8]
+                    }
 
             model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param)
             
