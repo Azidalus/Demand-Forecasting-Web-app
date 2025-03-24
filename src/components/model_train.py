@@ -71,7 +71,7 @@ class TrainPipeline:
                 # Add model and model score to final report
                 report[model_name] = (model, model_score)
                 # Get best model and best score
-                best_model = max(report.items(), key=lambda v: v[1][1])[0]
+                best_model = max(report.items(), key=lambda v: v[1][1])[1][0]
                 best_model_score = max(report.items(), key=lambda v: v[1][1])[1][1]
 
             return report, best_model_score, best_model
