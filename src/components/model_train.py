@@ -23,14 +23,14 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def evaluate_models(all_data, models, param_grid):
+    def evaluate_models(all_data, models, param_grid, forecast_horizon):
         try:
             report = {}
 
             # Iterate over all models
             for model_name, model in models:
                 para = param_grid[model_name]
-                ts_split = TimeSeriesSplit(n_splits=8, test_size=90)
+                ts_split = TimeSeriesSplit(n_splits=8, test_size=forecast_horizon)
 
                 if model_name == 'naive':
                     X = all_data['Units']
@@ -144,7 +144,7 @@ class TrainPipeline:
                           'sub_sample': [0, 0.4, 0.8]
                          }
 
-            model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param_grid)
+            model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
             
             # Get best model score from dict
             best_model_score = max(sorted(model_report.values()))
