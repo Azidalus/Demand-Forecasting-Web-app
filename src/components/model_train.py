@@ -36,8 +36,8 @@ class TrainPipeline:
                     X = all_data['Units']
                     naive_errors = []
                     # Do cross-val on full data and get evaluation score
-                    for train_idx, test_idx in ts_split.split(all_data['Units']):
-                        train, test = all_data['Units'].iloc[train_idx], all_data['Units'].iloc[test_idx]
+                    for train_idx, test_idx in ts_split.split(X):
+                        train, test = X.iloc[train_idx], X.iloc[test_idx]
                         naive_preds = np.full_like(test, fill_value=train.iloc[-1])
                         naive_MSE = mean_squared_error(test, naive_preds)
                         naive_errors.append(naive_MSE)
@@ -124,15 +124,13 @@ class TrainPipeline:
             '''
             
             logging.info('Entered model trainer component')
-            train = all_data[:-forecast_horizon]
-            test = all_data[-forecast_horizon:]
+            #train = all_data[:-forecast_horizon]
+            #test = all_data[-forecast_horizon:]
 
             logging.info('Starting to train model')
-            sarima = auto_arima(train, seasonal=True, m=7)
-            
-            #sarima_params = sarima.
-            predictions = sarima.predict(n_periods=len(test))
-            test_score = root_mean_squared_error(test, predictions)
+            #sarima = auto_arima(train, seasonal=True, m=7)
+            #predictions = sarima.predict(n_periods=len(test))
+            #test_score = root_mean_squared_error(test, predictions)
 
             models = {
                       'naive': None,
