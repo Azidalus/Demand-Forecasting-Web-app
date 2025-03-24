@@ -137,13 +137,13 @@ class TrainPipeline:
                       'XGBoost': XGBRegressor()
                      }
             
-            param = {
-                     'learning_rate': [0.01, 0.1],
-                     'n_estimators': [100, 300, 500],
-                     'sub_sample': [0, 0.4, 0.8]
-                    }
+            param_grid = {
+                          'learning_rate': [0.01, 0.1],
+                          'n_estimators': [100, 300, 500],
+                          'sub_sample': [0, 0.4, 0.8]
+                         }
 
-            model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param)
+            model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param_grid)
             
             # Get best model score from dict
             best_model_score = max(sorted(model_report.values()))
