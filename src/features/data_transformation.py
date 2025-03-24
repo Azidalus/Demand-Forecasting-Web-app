@@ -22,11 +22,11 @@ class DataTransformation:
 
     def create_features(self, df):
         try:
-            X['time'] = np.arange(len(y))
-            X['day_of_month'] = all_data['Date'].dt.day
-            X['month'] = all_data['Date'].dt.month
-            X['day_of_year'] = all_data['Date'].dt.dayofyear
-            X['day_of_week'] = all_data['Date'].dt.dayofweek
+            df['time'] = np.arange(len(df))
+            df['day_of_month'] = df['Date'].dt.day
+            df['month'] = df['Date'].dt.month
+            df['day_of_year'] = df['Date'].dt.dayofyear
+            df['day_of_week'] = df['Date'].dt.dayofweek
             df['quarter'] = df['date'].dt.quarter
             return df
 
