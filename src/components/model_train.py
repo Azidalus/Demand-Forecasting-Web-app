@@ -73,11 +73,11 @@ class TrainPipeline:
                 report[model_name] = (model, model_score)
 
             # Get best model and best score
-            best_model_name = 
+            best_model_name = max(report.items(), key=lambda v: v[1][1])[0]
             best_model = max(report.items(), key=lambda v: v[1][1])[1][0]
             best_model_score = max(report.items(), key=lambda v: v[1][1])[1][1]
 
-            return report, best_model_score, best_model
+            return report, best_model_name, best_model, best_model_score 
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -147,7 +147,7 @@ class TrainPipeline:
                          }
 
             # Get report, best model score and best model from the report
-            model_report, best_model_score, best_model = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
+            model_report, best_model_name, best_model, best_model_score  = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
             logging.info('Best model found')
             
             if best_model_score < 0.6:
@@ -155,7 +155,7 @@ class TrainPipeline:
 
             # Save test graph
             logging.info('Model training completed')
-            return best_model_score, best_model
+            return best_model_name, best_model, best_model_score 
 
         except Exception as e:
             raise CustomException(e, sys)
