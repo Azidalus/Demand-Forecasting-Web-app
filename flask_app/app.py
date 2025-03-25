@@ -52,21 +52,21 @@ if st.session_state['predict_btn'] == 1:
     data_transformation = DataTransformation()
     progress_bar.progress(20, text = 'Preprocessing data...')
     time.sleep(2)
-    all_data, y = data_transformation.initiate_data_transformation(data_df)
+    all_data = data_transformation.initiate_data_transformation(data_df, create_time_ftrs=True)
     st.write(all_data.head())
-    progress_bar.progress(40, text = 'Training models...')
+    progress_bar.progress(40, text = 'Choosing best model...')
 
     # Train models, choose the best model and save it as .pkl 
     # Train simple ARIMA model
     train_pipeline = TrainPipeline()
-    progress_bar.progress(50, text = 'Training models...')
-    test_score = train_pipeline.train(all_data, forecast_horizon=30)
+    progress_bar.progress(50, text = 'Choosing best model...')
+    best_score, best_model = train_pipeline.train(all_data, forecast_horizon=30)
     progress_bar.progress(60, text = 'Making predictions...')
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
     progress_bar.progress(70, text = 'Making predictions...')
-    predictions = predict_pipeline.predict(all_data, forecast_horizon=30)
+    predictions = predict_pipeline.predict(best_model, all_data, forecast_horizon=30)
     progress_bar.progress(80, text = 'Visualizing results...')
 
     # Output test predictions graph with error

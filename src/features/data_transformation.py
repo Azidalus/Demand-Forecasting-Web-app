@@ -104,9 +104,9 @@ class DataTransformation:
             '''
             logging.info('Entered data transformation component')
             # Do later
+            logging.info('Preprocessing data')
             #df = preprocess()
             df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', dayfirst=True)
-            #logging.info('Data preprocessing completed')
 
             # Create time features if needed
             if create_time_ftrs:
@@ -114,12 +114,14 @@ class DataTransformation:
                 df = self.create_features(df, scale=scale)
 
             #how to scale???
+            '''
             logging.info('Splitting data')
             X = df.drop('Sales', axis='columns').set_index('Date')
             y = df['Units']
-            logging.info('Data successfully transformed to X and y')
+            '''
+            logging.info('Data successfully transformed')
 
-            return(X, y)
+            return(df)
         
         except Exception as e:
             raise CustomException(e, sys)
