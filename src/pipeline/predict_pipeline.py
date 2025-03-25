@@ -10,7 +10,7 @@ class PredictPipeline:
     def __init__(self):
         pass
 
-    def predict(self, model, data, forecast_horizon):
+    def predict(self, model_name, model, data, forecast_horizon):
         try:
             '''
             model_path = 'artifacts\model.pkl'
