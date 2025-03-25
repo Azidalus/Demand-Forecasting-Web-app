@@ -22,13 +22,16 @@ class PredictPipeline:
             '''
             logging.info('Entered predictor component')
             #model = auto_arima(data, seasonal=True, m=7)
-            predictions = model.predict(n_periods=forecast_horizon)
+            #predictions = model.predict(n_periods=forecast_horizon)
 
             if model_name == 'XGBoost':
                 X = all_data.reset_index().drop(['Units','Date'], axis=1)
                 y = all_data['Units']
                 model.fit(X, y)
-                predictions = model.predict(n_periods=forecast_horizon)
+                predictions = model.predict(forecast_horizon)
+                
+            elif model_name == 'ARIMA':
+                predictions = model.predict(forecast_horizon)
 
             logging.info('Prediction made successfully')
             return predictions
