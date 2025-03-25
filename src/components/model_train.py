@@ -29,7 +29,7 @@ class TrainPipeline:
 
             # Iterate over all models
             for model_name, model in models:
-                para = param_grid[model_name]
+                #para = param_grid[model_name]
                 ts_split = TimeSeriesSplit(n_splits=8, test_size=forecast_horizon)
 
                 if model_name == 'naive':

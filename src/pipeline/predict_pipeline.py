@@ -10,7 +10,7 @@ class PredictPipeline:
     def __init__(self):
         pass
 
-    def predict(self, model_name, model, data, forecast_horizon):
+    def predict(self, model_name, model, all_data, forecast_horizon):
         try:
             '''
             model_path = 'artifacts\model.pkl'
@@ -23,6 +23,10 @@ class PredictPipeline:
             logging.info('Entered predictor component')
             #model = auto_arima(data, seasonal=True, m=7)
             predictions = model.predict(n_periods=forecast_horizon)
+
+            if model_name == 'XGBoost':
+                X = all_data.reset_index().drop(['Units','Date'], axis=1)
+                y = all_data['Units']
 
             logging.info('Prediction made successfully')
             return predictions
