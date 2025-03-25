@@ -27,6 +27,8 @@ class PredictPipeline:
             if model_name == 'XGBoost':
                 X = all_data.reset_index().drop(['Units','Date'], axis=1)
                 y = all_data['Units']
+                model.fit(X, y)
+                predictions = model.predict(n_periods=forecast_horizon)
 
             logging.info('Prediction made successfully')
             return predictions
