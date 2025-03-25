@@ -23,7 +23,7 @@ class TrainPipeline:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
-    def evaluate_models(all_data, models, param_grid, forecast_horizon):
+    def evaluate_models(self, all_data, models, param_grid, forecast_horizon):
         try:
             report = {}
 

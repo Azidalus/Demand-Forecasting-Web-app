@@ -27,7 +27,7 @@ class DataTransformation:
             df['month'] = df['Date'].dt.month
             df['day_of_year'] = df['Date'].dt.dayofyear
             df['day_of_week'] = df['Date'].dt.dayofweek
-            df['quarter'] = df['date'].dt.quarter
+            df['quarter'] = df['Date'].dt.quarter
             return df
 
         except Exception as e:
@@ -111,7 +111,7 @@ class DataTransformation:
             # Create time features if needed
             if create_time_ftrs:
                 logging.info('Creating features')
-                df = self.create_features(df, scale=scale)
+                df = self.create_features(df)
 
             #how to scale???
             '''
