@@ -67,6 +67,7 @@ class TrainPipeline:
                     gs = GridSearchCV(model, param_grid, cv=ts_split, scoring='neg_root_mean_squared_error')
                     gs.fit(X, y)
                     model.set_params(**gs.best_params_)
+                    model.fit(X, y)
                     model_score = np.abs(gs.best_score_)
                     
                 # Add model and model score to final report
