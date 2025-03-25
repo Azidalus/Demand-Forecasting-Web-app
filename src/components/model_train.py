@@ -39,7 +39,7 @@ class TrainPipeline:
                     for train_idx, test_idx in ts_split.split(X):
                         train, test = X.iloc[train_idx], X.iloc[test_idx]
                         naive_preds = np.full_like(test, fill_value=train.iloc[-1])
-                        naive_MSE = mean_squared_error(test, naive_preds)
+                        naive_MSE = root_mean_squared_error(test, naive_preds)
                         naive_errors.append(naive_MSE)
                     model_score = np.mean(naive_errors)
                     model = None
@@ -55,7 +55,7 @@ class TrainPipeline:
                         train, test = X.iloc[train_idx], X.iloc[test_idx]
                         arima_model = ARIMA(order=arima_params).fit(train)
                         arima_preds = arima_model.predict(n_periods=len(test))
-                        arima_MSE = mean_squared_error(test, arima_preds)
+                        arima_MSE = root_mean_squared_error(test, arima_preds)
                         arima_errors.append(arima_MSE)
                     model_score = np.mean(arima_errors)
                     model = best_arima
