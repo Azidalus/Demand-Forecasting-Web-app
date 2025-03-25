@@ -60,13 +60,13 @@ if st.session_state['predict_btn'] == 1:
     # Train simple ARIMA model
     train_pipeline = TrainPipeline()
     progress_bar.progress(50, text = 'Choosing best model...')
-    best_score, best_model = train_pipeline.train(all_data, forecast_horizon=30)
+    best_model_name, best_model, best_model_score = train_pipeline.train(all_data, forecast_horizon=30)
     progress_bar.progress(60, text = 'Making predictions...')
 
     # Make prediction with the best model
     predict_pipeline = PredictPipeline()
     progress_bar.progress(70, text = 'Making predictions...')
-    predictions = predict_pipeline.predict(best_model, all_data, forecast_horizon=30)
+    predictions = predict_pipeline.predict(best_model_name, best_model, all_data, forecast_horizon=30)
     progress_bar.progress(80, text = 'Visualizing results...')
 
     # Output test predictions graph with error
