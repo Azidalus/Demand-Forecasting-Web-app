@@ -33,6 +33,7 @@ class TrainPipeline:
                 ts_split = TimeSeriesSplit(n_splits=8, test_size=forecast_horizon)
 
                 if model_name == 'naive':
+                    logging.info('Training naive')
                     X = all_data['Units']
                     naive_errors = []
                     # Do cross-val on full data and get evaluation score
@@ -46,6 +47,7 @@ class TrainPipeline:
 
                 elif model_name == 'ARIMA':
                     # Train auto_arima on full data to get best params
+                    logging.info('Training ARIMA')
                     X = all_data[['Date','Units']].set_index('Date')
                     best_arima = auto_arima(X, seasonal=True, suppress_warnings=True)
                     arima_params = best_arima.order
@@ -62,6 +64,7 @@ class TrainPipeline:
 
                 else:
                     # Perform cross-val grid search on data, find best params, and set them to model
+                    logging.info('Training XGBoost')
                     X = all_data.reset_index().drop(['Units','Date'], axis=1)
                     y = all_data['Units']
                     gs = GridSearchCV(model, param_grid, cv=ts_split, scoring='neg_root_mean_squared_error')
@@ -74,6 +77,7 @@ class TrainPipeline:
                 report[model_name] = (model, model_score)
 
             # Get best model and best score
+            logging.info('Determining best model')
             best_model_name = max(report.items(), key=lambda v: v[1][1])[0]
             best_model = max(report.items(), key=lambda v: v[1][1])[1][0]
             best_model_score = max(report.items(), key=lambda v: v[1][1])[1][1]
@@ -148,7 +152,7 @@ class TrainPipeline:
                          }
 
             # Get report, best model score and best model from the report
-            model_report, best_model_name, best_model, best_model_score  = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
+            model_report, best_model_name, best_model, best_model_score = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
             logging.info('Best model found')
             
             if best_model_score < 0.6:
