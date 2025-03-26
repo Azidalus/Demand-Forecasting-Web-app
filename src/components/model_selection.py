@@ -158,7 +158,7 @@ class SelectionPipeline:
                 raise CustomException("Best model's score is < 0.6")
 
             # Save test graph
-            logging.info(f'Model training completed (Best model {best_model_name}, {best_model_score})')
+            logging.info(f'Model selection completed (Best model {best_model_name}, {best_model_score})')
             return best_model_name, best_model, best_model_score 
 
         except Exception as e:
