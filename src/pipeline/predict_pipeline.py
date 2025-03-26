@@ -1,5 +1,6 @@
 import sys
 import pandas as pd
+import numpy as np
 from pmdarima import auto_arima
 from src.exception import CustomException
 from src.utils import load_object
@@ -22,7 +23,10 @@ class PredictPipeline:
             '''
             logging.info('Entered predictor component')
             #model = auto_arima(data, seasonal=True, m=7)
-            predictions = model.predict(forecast_horizon)
+            if model_name == 'naive':
+                predictions = np.full_like(test, fill_value=train.iloc[-1])
+            else:
+                predictions = model.predict(forecast_horizon)
 
             '''
             if model_name == 'XGBoost':
