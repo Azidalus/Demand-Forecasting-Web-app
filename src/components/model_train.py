@@ -28,7 +28,7 @@ class TrainPipeline:
             report = {}
 
             # Iterate over all models
-            for model_name, model in models:
+            for model_name, model in models.items():
                 #para = param_grid[model_name]
                 ts_split = TimeSeriesSplit(n_splits=8, test_size=forecast_horizon)
 
