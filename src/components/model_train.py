@@ -153,13 +153,12 @@ class TrainPipeline:
 
             # Get report, best model score and best model from the report
             model_report, best_model_name, best_model, best_model_score = self.evaluate_models(all_data, models, param_grid, forecast_horizon)
-            logging.info('Best model found')
             
             if best_model_score < 0.6:
                 raise CustomException("Best model's score is < 0.6")
 
             # Save test graph
-            logging.info('Model training completed')
+            logging.info(f'Model training completed (Best model {best_model_name}, {best_model_score})')
             return best_model_name, best_model, best_model_score 
 
         except Exception as e:
