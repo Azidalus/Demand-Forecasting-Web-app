@@ -24,7 +24,7 @@ class PredictPipeline:
             logging.info('Entered predictor component')
             #model = auto_arima(data, seasonal=True, m=7)
             if model_name == 'naive':
-                predictions = np.full_like(forecast_horizon, fill_value=all_data['Units'].iloc[-1])
+                predictions = np.full_like(range(forecast_horizon), fill_value=all_data['Units'].iloc[-1])
             else:
                 predictions = model.predict(forecast_horizon)
 
