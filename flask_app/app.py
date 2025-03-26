@@ -9,8 +9,8 @@ import plotly.express as px
 import time
 
 sys.path.insert(0, 'C:\\Users\\Vector\\Documents\\GitHub\\Demand-Forecasting-Web-app')
-from src.components.model_train import TrainPipeline
-from src.pipeline.predict_pipeline import PredictPipeline
+from src.components.model_selection import SelectionPipeline
+from src.components.predict_pipeline import PredictPipeline
 from src.components.data_ingestion import DataIngestion
 from src.features.data_transformation import DataTransformation
 
@@ -58,9 +58,9 @@ if st.session_state['predict_btn'] == 1:
 
     # Train models, choose the best model and save it as .pkl 
     # Train simple ARIMA model
-    train_pipeline = TrainPipeline()
+    selection_pipeline = SelectionPipeline()
     progress_bar.progress(50, text = 'Choosing best model...')
-    best_model_name, best_model, best_model_score = train_pipeline.train(all_data, forecast_horizon=30)
+    best_model_name, best_model, best_model_score = selection_pipeline.train(all_data, forecast_horizon=30)
     progress_bar.progress(60, text = 'Making predictions...')
 
     # Make prediction with the best model
