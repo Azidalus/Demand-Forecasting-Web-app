@@ -106,7 +106,10 @@ class DataTransformation:
             # Do later
             logging.info('Preprocessing data')
             #df = preprocess()
+            # Convert to date format
             df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y', dayfirst=True)
+            # Replace zero values with last non-zero value
+            df['Units'] = df['Units'].replace(0, pd.NA).ffill()
 
             # Create time features if needed
             if create_time_ftrs:
